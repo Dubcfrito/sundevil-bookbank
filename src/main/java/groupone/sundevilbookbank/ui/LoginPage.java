@@ -1,5 +1,6 @@
 package groupone.sundevilbookbank.ui;
 
+import groupone.sundevilbookbank.Base;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,6 +23,7 @@ public class LoginPage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Base base = new Base();
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.color(0, 0, 0, 0.25));
         dropShadow.setRadius(5);
@@ -116,6 +118,15 @@ public class LoginPage extends Application {
         HBox.setHgrow(rightPane, Priority.ALWAYS);
         leftPane.setMaxWidth(Double.MAX_VALUE);
         rightPane.setMaxWidth(Double.MAX_VALUE);
+
+        loginButton.setOnAction(e -> {
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+
+            // Insert the username and password into the database
+            base.insertAccount(username, password);
+        });
+
 
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
