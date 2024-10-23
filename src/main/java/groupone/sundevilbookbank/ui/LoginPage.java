@@ -1,4 +1,4 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.ui;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

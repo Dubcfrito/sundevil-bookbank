@@ -4,5 +4,5 @@ module groupone.sundevilbookbank {
 
 
     opens groupone.sundevilbookbank to javafx.fxml;
-    exports groupone.sundevilbookbank;
+    exports groupone.sundevilbookbank.ui;
 }
