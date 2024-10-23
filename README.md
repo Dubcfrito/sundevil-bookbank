@@ -8,7 +8,8 @@ To get started:
 * 'mvn javafx:run' in command line to run
 
 ## TODO ##
-* implement classes
+* implement admin class
+* create sql database class
 * create pages
 
 ## File Structure ## 
