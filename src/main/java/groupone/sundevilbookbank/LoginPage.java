@@ -37,7 +37,7 @@ public class LoginPage extends Application {
         leftPane.setStyle("-fx-background-color: #F8F2DC;");
         leftPane.setEffect(dropShadow);
 
-        Label title = new Label("Sun Devil\nBook Bank");
+        Label title = new Label(" Sun Devil\nBook Bank");
         title.setTextFill(Color.web("#F8F2DC"));
         title.setFont(Font.font("Inter 28pt", 72));
         title.setEffect(dropShadow);
