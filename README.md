@@ -1,5 +1,5 @@
 # ReadMe #
-Requires Maven
+Requires Maven\n
 Requires Java version 22+
 ## TODO ##
 * implement classes
