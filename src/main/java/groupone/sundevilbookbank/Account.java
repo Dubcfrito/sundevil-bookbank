@@ -17,6 +17,16 @@ public class Account {
         this.email = email;
         this.listings = new ArrayList<Book>();
     }
+
+    //default constructor
+    public Account() {
+        this.accountID = 0;
+        this.username = "";
+        this.password = "";
+        this.email = "";
+        this.listings = new ArrayList<Book>();
+    }
+    
     //getters and setters
     public int getAccountID() {
         return accountID;

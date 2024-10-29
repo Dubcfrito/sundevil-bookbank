@@ -1,5 +1,6 @@
 package groupone.sundevilbookbank.ui;
 
+import groupone.sundevilbookbank.Account;
 import groupone.sundevilbookbank.Base;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -24,6 +25,8 @@ public class LoginPage extends Application {
     @Override
     public void start(Stage primaryStage) {
         Base base = new Base();
+        Account currAcc = new Account();
+
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.color(0, 0, 0, 0.25));
         dropShadow.setRadius(5);
@@ -119,14 +122,20 @@ public class LoginPage extends Application {
         leftPane.setMaxWidth(Double.MAX_VALUE);
         rightPane.setMaxWidth(Double.MAX_VALUE);
 
+        // Testing SQL queries DELETE THIS LATER
         loginButton.setOnAction(e -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
+            
+            currAcc.setUsername(usernameField.getText());
+            currAcc.setPassword(passwordField.getText());
 
-            // Insert the username and password into the database
-            base.insertAccount(username, password);
+            currAcc.setAccountID(base.insertAccount(currAcc.getUsername(), currAcc.getPassword(), "email"));
         });
 
+        // Testing SQL queries DELETE THIS LATER
+        signUpButton.setOnAction(e -> {
+
+            base.insertBook(currAcc.getAccountID(), "title", "author", "genre", "subject", "ISBN", "condition", "description", "price", "status", "images");
+        });
 
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
