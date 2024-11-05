@@ -3,7 +3,9 @@ module groupone.sundevilbookbank {
     requires javafx.fxml;
     requires java.sql;
 
+    // Export the main package where MainApp is located
+    exports groupone.sundevilbookbank;
 
-    opens groupone.sundevilbookbank to javafx.fxml;
-    exports groupone.sundevilbookbank.ui;
+    // Open the controllers package to JavaFX, allowing reflective access for FXML loading
+    opens groupone.sundevilbookbank.controllers to javafx.fxml;
 }
