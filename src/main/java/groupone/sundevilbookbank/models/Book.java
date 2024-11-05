@@ -1,4 +1,4 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.models;
 
 public class Book {
     private int bookID;

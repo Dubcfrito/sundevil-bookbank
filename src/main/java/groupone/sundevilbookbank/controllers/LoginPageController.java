@@ -41,7 +41,7 @@ public class LoginPageController {
         passwordField.setFont(customFont);
 
         // Add any additional initialization logic here if necessary
-        logoView.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/logo.png")));
+        logoView.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/logo.png")));
 
     }
 

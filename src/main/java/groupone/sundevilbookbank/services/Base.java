@@ -1,14 +1,18 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.ResultSet;
+import java.net.URISyntaxException;
 
 public class Base {
-    private final static String DATABASE_URL = "jdbc:sqlite:src\\main\\java\\groupone\\sundevilbookbank\\base.db";
+    private static final String DATABASE_URL;
+
+    static {
+        DATABASE_URL = "jdbc:sqlite:" + getDatabasePath();
+    }
 
     public static Connection connect() {
         Connection conn = null;
@@ -19,13 +23,22 @@ public class Base {
             System.out.println(e.getMessage());
         }
         return conn;
-
     }
     
     public Base() {
         createAccountsTable();
         createOrderTable();
         createBookTable();
+    }
+
+    // Method to get the path of the database file
+    private static String getDatabasePath() {
+        try {
+            // Fetches the path of the database file in resources
+            return Base.class.getResource("/groupone/sundevilbookbank/database/base.db").toURI().getPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to locate database file", e);
+        }
     }
 
     public void createAccountsTable() {
@@ -35,15 +48,13 @@ public class Base {
                 + "password TEXT NOT NULL);";
 
         try (Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             stmt.execute(createTableSQL);
             System.out.println("Accounts table created in base.db.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
-    
 
     public void createOrderTable() {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS orders ("
@@ -54,7 +65,7 @@ public class Base {
                 + "status TEXT NOT NULL);";
 
         try (Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             stmt.execute(createTableSQL);
             System.out.println("Orders table created in base.db.");
         } catch (SQLException e) {
@@ -77,7 +88,7 @@ public class Base {
                 + "images TEXT NULL);";
 
         try (Connection conn = connect();
-            Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             stmt.execute(createTableSQL);
             System.out.println("Books table created in base.db.");
         } catch (SQLException e) {
@@ -89,36 +100,29 @@ public class Base {
         String insertSQL = "INSERT INTO accounts (username, password) VALUES (?, ?)";
     
         try (Connection conn = connect();
-            PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-            // Set parameters for the PreparedStatement
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-    
-            // Execute the query
             pstmt.executeUpdate();
             System.out.println("Account inserted into base.db.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void insertOrder(int bookID, String username, String price, String status) {
         String insertSQL = "INSERT INTO orders (bookID, username, price, status) VALUES (?, ?, ?, ?)";
     
         try (Connection conn = connect();
-            PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-            // Set parameters for the PreparedStatement
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
             pstmt.setInt(1, bookID);
             pstmt.setString(2, username);
             pstmt.setString(3, price);
             pstmt.setString(4, status);
-    
-            // Execute the query
             pstmt.executeUpdate();
             System.out.println("Order inserted into base.db.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
 }

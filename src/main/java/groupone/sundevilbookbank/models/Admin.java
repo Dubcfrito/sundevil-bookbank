@@ -1,4 +1,4 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.models;
 
 public class Admin extends Account{
     private int adminID;

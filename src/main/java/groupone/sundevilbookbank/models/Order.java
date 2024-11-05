@@ -1,4 +1,4 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.models;
 
 import java.util.ArrayList;
 
