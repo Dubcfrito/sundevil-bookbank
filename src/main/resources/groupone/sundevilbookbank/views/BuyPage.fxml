@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
     fx:controller="groupone.sundevilbookbank.controllers.BuyPageController"
     prefWidth="1280" prefHeight="720"
-    stylesheets="@stylesheets\BuyPage.css">
+    stylesheets="@../stylesheets/BuyPage.css">
 
     <!-- Left side for dropdown selectors -->
     <left>
