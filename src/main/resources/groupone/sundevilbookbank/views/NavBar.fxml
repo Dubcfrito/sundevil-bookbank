@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.NavBarController"
+      style="-fx-background-color: #8a0d37;" spacing="10" alignment="CENTER" prefHeight="50">
+
+    <!-- NavBar Buttons -->
+    <children>
+        <Text text="Sun Devil Book Bank" style="-fx-fill: white; -fx-font-size: 20;" />
+        <Button fx:id="homeButton" text="Home" style="-fx-background-color: #FFA500; -fx-text-fill: black;"/>
+        <Button fx:id="accountButton" text="Account" style="-fx-background-color: #FFA500; -fx-text-fill: black;"/>
+    </children>
+</HBox>

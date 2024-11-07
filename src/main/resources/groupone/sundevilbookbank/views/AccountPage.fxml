@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.AccountPageController"
+      style="-fx-background-color: #F8F2DC;" spacing="10" prefWidth="1280" prefHeight="720">
+
+    <children>
+        <fx:include source="NavBar.fxml"/>
+
+        <StackPane>
+            <Region style="-fx-background-color: transparent;" />
+        </StackPane>
+    </children>
+</VBox>

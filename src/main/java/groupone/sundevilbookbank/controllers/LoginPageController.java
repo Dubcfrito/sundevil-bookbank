@@ -30,10 +30,8 @@ public class LoginPageController {
 
     @FXML
     public void initialize() {
-        // Load custom font, assuming "Inter_24pt-Bold" font file is in src/main/resources/fonts
         Font customFont = Font.loadFont(getClass().getResourceAsStream("/fonts/Inter_24pt-Bold.ttf"), 18);
 
-        // Set the font for buttons and text fields
         loginButton.setFont(customFont);
         signUpButton.setFont(customFont);
         forgotPasswordButton.setFont(customFont);
@@ -45,7 +43,6 @@ public class LoginPageController {
 
     }
 
-    // Optional action handlers for buttons
     @FXML
     private void handleLoginAction() {
         String username = usernameField.getText();
