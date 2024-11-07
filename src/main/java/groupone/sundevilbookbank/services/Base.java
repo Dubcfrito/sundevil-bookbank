@@ -1,4 +1,4 @@
-package groupone.sundevilbookbank;
+package groupone.sundevilbookbank.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import java.sql.ResultSet;
 
 public class Base {
-    private final static String DATABASE_URL = "jdbc:sqlite:src\\main\\java\\groupone\\sundevilbookbank\\base.db";
+    private final static String DATABASE_URL = "jdbc:sqlite:src\\main\\resources\\groupone\\database\\base.db";
 
     public static Connection connect() {
         Connection conn = null;
