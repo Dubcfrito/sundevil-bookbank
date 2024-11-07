@@ -9,13 +9,14 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
-    private static int currentPageIndex = 1;
+    private static int currentPageIndex = 2;
 
     @Override
     public void start(Stage primaryStage) {
         // Initialize the pages list
         pages.add("AccountPage.fxml");
         pages.add("LoginPage.fxml");
+        pages.add("BuyPage.fxml");
         
         // Set up PageLoader
         PageLoader.init(primaryStage);

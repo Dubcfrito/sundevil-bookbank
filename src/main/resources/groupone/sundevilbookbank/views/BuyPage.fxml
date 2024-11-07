@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+    fx:controller="groupone.sundevilbookbank.controllers.BuyPageController"
+    prefWidth="1280" prefHeight="720"
+    stylesheets="@stylesheets\BuyPage.css">
+
+    <!-- Left side for dropdown selectors -->
+    <left>
+        <VBox spacing="15" style="-fx-padding: 100;">
+            <Button text="Genre" onAction="#handleGenreFilter" />
+            <Button text="Subject" onAction="#handleSubjectFilter" />
+            <Button text="Author" onAction="#handleAuthorFilter" />
+            <Button text="Condition" onAction="#handleConditionFilter" />
+            <Button text="Price" onAction="#handlePriceFilter" />
+        </VBox>
+    </left>
+
+    <!-- Center for main content (book listings, etc.) -->
+    <center>
+        <!-- Place the main book listings layout here -->
+        <!-- Example placeholder -->
+        <VBox fx:id="bookList" style="-fx-padding: 10;" />
+    </center>
+
+    <!-- Top for search bar (optional) -->
+    <top>
+        <HBox alignment="CENTER" style="-fx-padding: 10;">
+            <TextField fx:id="searchField" promptText="Search" />
+            <Button text="Search" onAction="#handleSearch" />
+        </HBox>
+    </top>
+</BorderPane>
