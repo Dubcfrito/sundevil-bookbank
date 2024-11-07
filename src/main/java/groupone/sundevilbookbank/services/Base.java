@@ -6,10 +6,24 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import org.json.JSONArray;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 
 public class Base {
-    private final static String DATABASE_URL = "jdbc:sqlite:src\\main\\resources\\groupone\\database\\base.db";
+    private final static String DATABASE_URL;
+
+    static {
+        DATABASE_URL = "jdbc:sqlite:" + getDatabasePath();
+    }
+
+    private static String getDatabasePath() {
+        try {
+            // Fetches the path of the database file in resources
+            return Base.class.getResource("/groupone/sundevilbookbank/database/base.db").toURI().getPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to locate database file", e);
+        }
+    }
 
     public static Connection connect() {
         Connection conn = null;
