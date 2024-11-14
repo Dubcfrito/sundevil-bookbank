@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
-    private static int currentPageIndex = 1;
+    private static int currentPageIndex = 0;
 
     @Override
     public void start(Stage primaryStage) {
