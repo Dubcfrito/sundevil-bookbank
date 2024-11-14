@@ -52,11 +52,11 @@ public class LoginPageController {
 
     @FXML
     private void handleSignUpAction() {
-        // Logic for sign-up action
+        MainApp.loadPage("SignUpPage.fxml")
     }
 
     @FXML
     private void handleForgotPasswordAction() {
-        // Logic for forgot password action
+        MainApp.loadPage("ForgotPasswordPage.fxml")
     }
 }
