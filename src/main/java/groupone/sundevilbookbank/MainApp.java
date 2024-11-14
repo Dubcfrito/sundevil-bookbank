@@ -16,8 +16,8 @@ public class MainApp extends Application {
         // Initialize the pages list
         pages.add("AccountPage.fxml");
         pages.add("LoginPage.fxml");
-        pages.add("ForgotPasswordPage.fxml")
-        //pages.add("SignUpPage.fxml")
+        pages.add("ForgotPasswordPage.fxml");
+        pages.add("SignUpPage.fxml");
         
         // Set up PageLoader
         PageLoader.init(primaryStage);
