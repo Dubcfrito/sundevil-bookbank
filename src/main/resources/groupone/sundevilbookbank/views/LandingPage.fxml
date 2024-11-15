@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.LandingPageController"
+      prefWidth="1280" prefHeight="720">
+
+
+        <!-- Landing Page without the Navigation Bar -->
+        <VBox fx:id="landingPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+
+            <children>
+
+                <Label fx:id="title" text="Welcome John!" textFill="#000000" 
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 72;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                <Label fx:id="secondary" text="What would you like to do today?" textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 60;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                
+            </children>
+
+            <HBox alignment="CENTER" spacing="150" style="-fx-padding: 75">
+
+                <!-- Buttons with font style -->
+                <Button fx:id="purchaseABook" text="Purchase a Book" 
+                        prefWidth="360" prefHeight="70" 
+                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/>
+                
+                <Button fx:id="sellABook" text="Sell a Book" 
+                        prefWidth="360" prefHeight="70" 
+                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/>
+            
+            </HBox>
+
+        </VBox>
+
+</HBox>
