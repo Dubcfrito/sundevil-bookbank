@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import groupone.sundevilbookbank.models.Book;
 
 import org.json.JSONArray;
 import java.net.URISyntaxException;
@@ -229,5 +230,53 @@ public class Base {
             System.out.println(e.getMessage());
         }
         return subjects;
+    }
+
+    // get all genres in sorted alphabetical list
+    public ArrayList<String> getAllGenres() {
+        String selectSQL = "SELECT DISTINCT genre FROM books ORDER BY genre ASC";
+        ArrayList<String> genres = new ArrayList<String>();
+    
+        try (Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(selectSQL)) {
+            while (rs.next()) {
+                genres.add(rs.getString("genre"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return genres;
+    }
+
+    // get all books in the database, return as a list of Book objects
+    public ArrayList<Book> getAllBooks() {
+        String selectSQL = "SELECT * FROM books";
+        ArrayList<Book> books = new ArrayList<Book>();
+    
+        try (Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(selectSQL)) {
+            while (rs.next()) {
+                Book book = new Book(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("genre"),
+                    rs.getString("subject"),
+                    rs.getString("ISBN"),
+                    rs.getString("condition"),
+                    rs.getString("description"),
+                    rs.getString("price"),
+                    rs.getString("status"),
+                    rs.getString("images")
+                );
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return books;
     }
 }

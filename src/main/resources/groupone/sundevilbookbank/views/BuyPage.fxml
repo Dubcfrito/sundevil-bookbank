@@ -17,6 +17,9 @@
         <VBox styleClass="parameters" spacing="15">
             <Accordion xmlns:fx="http://javafx.com/fxml" fx:id="accordion">
                 <panes>
+                    <TitledPane text="Genre">
+                        <VBox fx:id="genreButtonContainer" spacing="10" />
+                    </TitledPane>
                     <TitledPane text="Subject">
                         <VBox fx:id="subjectButtonContainer" spacing="10" />
                     </TitledPane>
@@ -30,18 +33,23 @@
                         </VBox>
                     </TitledPane>
                     <TitledPane text="Condition">
-                        <VBox fx:id="checkBoxContainer" spacing="10">
+                        <VBox fx:id="conditionButtonContainer" spacing="10">
                             <CheckBox fx:id="condition1" text="Like New" onAction="#handleConditionFilter"/>
                             <CheckBox fx:id="condition2" text="Very Good" onAction="#handleConditionFilter"/>
                             <CheckBox fx:id="condition3" text="Acceptable" onAction="#handleConditionFilter"/>
                             <CheckBox fx:id="condition4" text="Poor" onAction="#handleConditionFilter"/>
                             <CheckBox fx:id="condition5" text="Bad" onAction="#handleConditionFilter"/>
                             <CheckBox fx:id="condition6" text="Unspecified" onAction="#handleConditionFilter"/>
-
                         </VBox>
                     </TitledPane>
                     <TitledPane text="Price">
-                        <Label text="This is option 3 content" />
+                        <VBox fx:id="priceButtonContainer" spacing="10">
+                            <CheckBox fx:id="price1" text="0 - 25" onAction="#handlePriceFilter"/>
+                            <CheckBox fx:id="price2" text="25 - 50" onAction="#handlePriceFilter"/>
+                            <CheckBox fx:id="price3" text="50 - 75" onAction="#handlePriceFilter"/>
+                            <CheckBox fx:id="price4" text="75 - 100" onAction="#handlePriceFilter"/>
+                            <CheckBox fx:id="price5" text=">100" onAction="#handlePriceFilter"/>
+                        </VBox>
                     </TitledPane>
                 </panes>
             </Accordion>
@@ -50,9 +58,10 @@
 
     <!-- Center for main content (book listings, etc.) -->
     <center>
-        <!-- Place the main book listings layout here -->
-        <!-- Example placeholder -->
-        <VBox styleClass="results"/>
+        <!-- Place the main book listings layout here using a scrollpane-->
+        <ScrollPane styleClass="center" fitToWidth="true" fitToHeight="true">
+            <VBox fx:id="searchResults" />
+        </ScrollPane>
     </center>
 
     <!-- Top for search bar (optional) -->

@@ -65,3 +65,26 @@ BorderPane {
 .accordion {
     -fx-background-color: transparent;
 }
+
+.center {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+#searchResults {
+    -fx-background-color: #F8F2DC;
+    -fx-padding: 10;
+}
+
+.book-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.book-info {
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
