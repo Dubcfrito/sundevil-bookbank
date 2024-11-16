@@ -4,6 +4,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
     fx:controller="groupone.sundevilbookbank.controllers.BuyPageController"
@@ -12,12 +14,37 @@
 
     <!-- Left side for dropdown selectors -->
     <left>
-        <VBox spacing="15" style="-fx-padding: 100;">
-            <Button text="Genre" onAction="#handleGenreFilter" />
-            <Button text="Subject" onAction="#handleSubjectFilter" />
-            <Button text="Author" onAction="#handleAuthorFilter" />
-            <Button text="Condition" onAction="#handleConditionFilter" />
-            <Button text="Price" onAction="#handlePriceFilter" />
+        <VBox styleClass="parameters" spacing="15">
+            <Accordion xmlns:fx="http://javafx.com/fxml" fx:id="accordion">
+                <panes>
+                    <TitledPane text="Subject">
+                        <VBox fx:id="subjectButtonContainer" spacing="10" />
+                    </TitledPane>
+                    <TitledPane text="Author">
+                        <VBox spacing="10">
+                            <HBox spacing="10" >
+                                <TextField fx:id="authorTextField" promptText="Author Name" HBox.hgrow="ALWAYS"/>
+                                <Button text="🔍" onAction="#handleAuthorFilter"/>
+                            </HBox>
+                            <VBox fx:id="authorButtonContainer" spacing="10" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="Condition">
+                        <VBox fx:id="checkBoxContainer" spacing="10">
+                            <CheckBox fx:id="condition1" text="Like New" onAction="#handleConditionFilter"/>
+                            <CheckBox fx:id="condition2" text="Very Good" onAction="#handleConditionFilter"/>
+                            <CheckBox fx:id="condition3" text="Acceptable" onAction="#handleConditionFilter"/>
+                            <CheckBox fx:id="condition4" text="Poor" onAction="#handleConditionFilter"/>
+                            <CheckBox fx:id="condition5" text="Bad" onAction="#handleConditionFilter"/>
+                            <CheckBox fx:id="condition6" text="Unspecified" onAction="#handleConditionFilter"/>
+
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="Price">
+                        <Label text="This is option 3 content" />
+                    </TitledPane>
+                </panes>
+            </Accordion>
         </VBox>
     </left>
 
@@ -25,14 +52,18 @@
     <center>
         <!-- Place the main book listings layout here -->
         <!-- Example placeholder -->
-        <VBox fx:id="bookList" style="-fx-padding: 10;" />
+        <VBox styleClass="results"/>
     </center>
 
     <!-- Top for search bar (optional) -->
     <top>
-        <HBox alignment="CENTER" style="-fx-padding: 10;">
-            <TextField fx:id="searchField" promptText="Search" />
-            <Button text="Search" onAction="#handleSearch" />
+        <HBox styleClass="searchBar">
+            <BorderPane.margin>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </BorderPane.margin>
+            <Button text="🔍" onAction="#handleSearch" />
+            <TextField styleClass="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
+            <Button text="🛒" />
         </HBox>
     </top>
 </BorderPane>

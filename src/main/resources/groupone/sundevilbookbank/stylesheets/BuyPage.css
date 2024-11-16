@@ -1,49 +1,67 @@
-/* BuyPage.css */
-
-.root {
-    -fx-font-family: Arial;
-    -fx-background-color: #f2f2f2;
-    -fx-padding: 20px;
+BorderPane {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 12;
 }
 
-.container {
-    -fx-background-color: #ffffff;
-    -fx-padding: 20px;
-    -fx-border-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0); /* JavaFX equivalent for box-shadow */
-    -fx-max-width: 300px; /* Constrains the width */
+.parameters {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 24;
 }
 
-.label {
-    -fx-font-size: 24px;
-    -fx-text-fill: #333333;
+.results {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 10;
 }
 
-.text-field, .password-field, .email-field {
-    -fx-pref-width: 100%; /* Sets width to 100% of container */
-    -fx-padding: 10px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-border-radius: 4px;
+.topbar {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 10;
 }
 
-.button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white; /* Corrected -fx-color to -fx-text-fill */
-    -fx-padding: 10px 20px;
-    -fx-border: none;
-    -fx-border-radius: 4px;
-    -fx-pref-width: 100%; /* Sets button width to 100% of container */
+.searchBar {
+    -fx-alignment: center-left;
+    -fx-padding: 5;
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-radius: 150;
+    -fx-border-width: 2;
 }
 
-.button:hover {
-    -fx-background-color: #45a049;
+.searchBar Button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 20px;
+    -fx-background-radius: 150;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 48px;
 }
 
-.hyperlink {
-    -fx-text-fill: #4CAF50; /* Corrected -fx-color to -fx-text-fill */
+.searchBar Button:hover {
+    -fx-background-color: #568196;
+    -fx-text-fill: #F8F2DC
 }
 
-.hyperlink:hover {
-    -fx-underline: true; /* JavaFX equivalent for underline text */
+.searchBar .searchField {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #B0B0B0;
+    -fx-border-color: transparent;
+    -fx-font-size: 20px;
+    -fx-pref-height: 40px;
+}
+
+.accordion {
+    -fx-background-color: transparent;
 }

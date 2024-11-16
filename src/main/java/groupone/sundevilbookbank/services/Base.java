@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
@@ -19,7 +21,11 @@ public class Base {
     private static String getDatabasePath() {
         try {
             // Fetches the path of the database file in resources
-            return Base.class.getResource("/groupone/sundevilbookbank/database/base.db").toURI().getPath();
+            String path = Base.class.getResource("/groupone/database/base.db").toURI().getPath();
+            if (path == null) {
+                throw new IllegalArgumentException("Database file not found in classpath.");
+            }
+            return path;
         } catch (URISyntaxException e) {
             throw new RuntimeException("Failed to locate database file", e);
         }
@@ -206,5 +212,22 @@ public class Base {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    // get all subjects in sorted alphabetical list
+    public ArrayList<String> getAllSubjects() {
+        String selectSQL = "SELECT DISTINCT subject FROM books ORDER BY subject ASC";
+        ArrayList<String> subjects = new ArrayList<String>();
+    
+        try (Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(selectSQL)) {
+            while (rs.next()) {
+                subjects.add(rs.getString("subject"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return subjects;
     }
 }
