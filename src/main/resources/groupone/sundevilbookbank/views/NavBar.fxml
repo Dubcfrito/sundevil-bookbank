@@ -23,7 +23,7 @@
 
     <!-- Title Text with Updated Style -->
     <Text fx:id="titleText" text="Sun Devil Book Bank"
-          style="-fx-font-family: 'Inter'; -fx-font-size: 28px; -fx-font-weight: bold; -fx-fill: #FFA500;" />
+          style="-fx-font-family: 'Inter'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #FFA500;" />
 
     <Region HBox.hgrow="ALWAYS" />
 
@@ -34,5 +34,6 @@
     </StackPane>
 
     <Region prefWidth="10" />
+    <Region prefHeight="590" />
 
 </HBox>
