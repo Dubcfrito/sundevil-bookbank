@@ -32,14 +32,18 @@ public class MainApp extends Application {
         testAccount.addOrder(order2);
 
         // Add pages to the list
-        pages.add("AccountPage.fxml");
         pages.add("LoginPage.fxml");
+        pages.add("LandingPage.fxml");
+        pages.add("AccountPage.fxml");
+        pages.add("ReviewOrder.fxml");
+        pages.add("PurchaseConfirmation.fxml");
 
         // Initialize PageLoader
         PageLoader.init(primaryStage);
 
         // Load AccountPage with Account data
-        PageLoader.loadPageWithData("AccountPage.fxml", AccountPageController::setCurrentAccount, testAccount);
+        //PageLoader.loadPageWithData("AccountPage.fxml", AccountPageController::setCurrentAccount, testAccount);
+        PageLoader.loadPage(pages.get(currentPageIndex));
     }
 
     public static void nextPage() {
