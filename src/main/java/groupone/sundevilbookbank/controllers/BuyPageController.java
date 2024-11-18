@@ -1,6 +1,11 @@
 package groupone.sundevilbookbank.controllers;
 
 import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +20,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 public class BuyPageController {
     private Base base = new Base();
 
     // Filter options
-    List<String> genreOptions = new ArrayList<>();
-    List<String> subjectOptions = new ArrayList<>();
-    List<String> authorOptions = new ArrayList<>();
-    List<String> conditionOptions = new ArrayList<>();
-    List<String> priceOptions = new ArrayList<>();
+    String title = null;
+    ArrayList<String> genreOptions = new ArrayList<>();
+    ArrayList<String> subjectOptions = new ArrayList<>();
+    ArrayList<String> authorOptions = new ArrayList<>();
+    ArrayList<String> ISBNOptions = new ArrayList<>();
+    ArrayList<String> conditionOptions = new ArrayList<>();
+    ArrayList<String> priceOptions = new ArrayList<>();
 
     // List of books to be displayed
     ArrayList<Book> displayedBooks = new ArrayList<Book>();
@@ -38,6 +51,9 @@ public class BuyPageController {
 
     @FXML
     private TextField authorTextField; // The author filter text field
+
+    @FXML
+    private TextField ISBNTextField; // The ISBN filter text field
 
     @FXML
     private VBox checkBoxContainer; // The VBox for the condition filter checkboxes
@@ -53,6 +69,9 @@ public class BuyPageController {
 
     @FXML
     private VBox authorButtonContainer; // The VBox for the author filter buttons
+
+    @FXML
+    private VBox ISBNButtonContainer; // The VBox for the ISBN filter buttons
 
     @FXML
     private VBox conditionButtonContainer; // The VBox for the price filter buttons
@@ -76,13 +95,13 @@ public class BuyPageController {
         // use getallsubjects() to get all subjects from the database and add each subject as a checkbox to subjectButtonContainer
         ArrayList<String> subjects = base.getAllSubjects();
         for (String subject : subjects) {
-            addCheckBox(subjectButtonContainer, subject, false);
+            addSubjectBox(subjectButtonContainer, subject, false);
         }
 
         // use getallauthors() to get all authors from the database and add each author as a checkbox to authorButtonContainer
         ArrayList<String> genres = base.getAllGenres();
         for (String genre : genres) {
-            addCheckBox(genreButtonContainer, genre, false);
+            addGenreBox(genreButtonContainer, genre, false);
         }
 
         // use getallbooks() to get all books from the database and add each book to displayedBooks
@@ -95,46 +114,91 @@ public class BuyPageController {
     // Event handler for search functionality
     @FXML
     private void handleSearch() {
-        String searchText = searchField.getText();
-        System.out.println("Searching for: " + searchText);
+        title = searchField.getText();
+        System.out.println("Searching for: " + title);
         // Implement search functionality to filter or update the bookList here
+        updateDisplayedBooks();
     }
 
     // Event handler for Genre filter
     @FXML
     private void handleGenreFilter() {
-        System.out.println("Genre filter clicked");
-        // Implement filtering functionality for Genre here
+        genreOptions.clear();
+        for (var node : genreButtonContainer.getChildren()) {
+            if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
+                genreOptions.add(checkBox.getText());
+                System.out.println("Genre: " + checkBox.getText() + ", Selected: " + checkBox.isSelected());
+            }
+        }
+        updateDisplayedBooks();
     }
 
     // Event handler for Subject filter
     @FXML
     private void handleSubjectFilter() {
-        System.out.println("Subject filter clicked");
-        // Implement filtering functionality for Subject here
+        subjectOptions.clear();
+        for (var node : subjectButtonContainer.getChildren()) {
+            if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
+                subjectOptions.add(checkBox.getText());
+                System.out.println("Subject: " + checkBox.getText() + ", Selected: " + checkBox.isSelected());
+            }
+        }
+        updateDisplayedBooks();
     }
 
     // Event handler for Author filter
     @FXML
-    private void handleAuthorFilter() {
+    private void handleAuthorSearch() {
         String searchText = authorTextField.getText();
-        addCheckBox(authorButtonContainer, searchText, true);
+        addAuthorBox(authorButtonContainer, searchText, true);
         System.out.println("Searching for: " + searchText);
+        updateDisplayedBooks();
+    }
+
+    @FXML
+    private void handleAuthorFilter() {
+        authorOptions.clear();
+        for (var node : authorButtonContainer.getChildren()) {
+            if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
+                authorOptions.add(checkBox.getText());
+                System.out.println("Author: " + checkBox.getText() + ", Selected: " + checkBox.isSelected());
+            }
+        }
+        updateDisplayedBooks();
+    }
+
+    // Event handler for ISBN Searchbar
+    @FXML
+    private void handleISBNSearch() {
+        String searchText = ISBNTextField.getText();
+        addISBNBox(ISBNButtonContainer, searchText, true);
+        System.out.println("Searching for: " + searchText);
+        updateDisplayedBooks();
+    }
+
+    @FXML
+    private void handleISBNFilter() {
+        ISBNOptions.clear();
+        for (var node : ISBNButtonContainer.getChildren()) {
+            if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
+                ISBNOptions.add(checkBox.getText());
+                System.out.println("ISBN: " + checkBox.getText() + ", Selected: " + checkBox.isSelected());
+            }
+        }
+        updateDisplayedBooks();
     }
 
     // Event handler for Condition filter
     @FXML
     private void handleConditionFilter() {
         conditionOptions.clear();
-        for (var node : checkBoxContainer.getChildren()) {
+        for (var node : conditionButtonContainer.getChildren()) {
             if (node instanceof CheckBox checkBox && checkBox.isSelected()) {
                 conditionOptions.add(checkBox.getText());
+                System.out.println("Condition: " + checkBox.getText() + ", Selected: " + checkBox.isSelected());
             }
         }
-        for (String condition : conditionOptions) {
-            System.out.println("Condition filter clicked: " + condition);
-        }
-        // Implement filtering functionality for Condition here
+        updateDisplayedBooks();
     }
 
     // Event handler for Price filter
@@ -152,15 +216,34 @@ public class BuyPageController {
         // Implement filtering functionality for Price here
     }
 
-    public void addCheckBox(VBox container, String buttonText, boolean selected) {
+    public void addGenreBox(VBox container, String buttonText, boolean selected) {
         CheckBox newCheckBox = new CheckBox(buttonText);
-        newCheckBox.setOnAction(e -> handleButtonClick(buttonText)); // Handle click event
+        newCheckBox.setOnAction(e -> handleGenreFilter()); // Handle click event
         newCheckBox.setSelected(selected);
         container.getChildren().add(newCheckBox); // Add the button to VBox
     }
 
-    private void handleButtonClick(String buttonText) {
-        System.out.println(buttonText + " button clicked!");
+    public void addSubjectBox(VBox container, String buttonText, boolean selected) {
+        CheckBox newCheckBox = new CheckBox(buttonText);
+        newCheckBox.setOnAction(e -> handleSubjectFilter()); // Handle click event
+        newCheckBox.setSelected(selected);
+        container.getChildren().add(newCheckBox); // Add the button to VBox
+    }
+
+    public void addAuthorBox(VBox container, String buttonText, boolean selected) {
+        CheckBox newCheckBox = new CheckBox(buttonText);
+        newCheckBox.setOnAction(e -> handleAuthorFilter()); // Handle click event
+        newCheckBox.setSelected(selected);
+        container.getChildren().add(newCheckBox); // Add the button to VBox
+        authorOptions.add(newCheckBox.getText());
+    }
+
+    public void addISBNBox(VBox container, String buttonText, boolean selected) {
+        CheckBox newCheckBox = new CheckBox(buttonText);
+        newCheckBox.setOnAction(e -> handleISBNFilter()); // Handle click event
+        newCheckBox.setSelected(selected);
+        container.getChildren().add(newCheckBox); // Add the button to VBox
+        ISBNOptions.add(newCheckBox.getText());
     }
 
     public void addBook(Book book) {
@@ -203,14 +286,16 @@ public class BuyPageController {
         details.add(description, 2, 1);
 
         //make each component of the gridpane take up the same amount of space
-        details.setHgrow(title, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(genre, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(subject, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(condition, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(author, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(isbn, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(price, javafx.scene.layout.Priority.ALWAYS);
-        details.setHgrow(description, javafx.scene.layout.Priority.ALWAYS);
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(25);
+
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(25);
+
+        ColumnConstraints col3 = new ColumnConstraints();
+        col3.setPercentWidth(50);
+
+        details.getColumnConstraints().addAll(col1, col2, col3);
 
         // Add gridpane to HBox
         bookInfo.getChildren().add(details);
@@ -220,8 +305,22 @@ public class BuyPageController {
         buyButton.setOnAction(e -> System.out.println("Buy button clicked!"));
         bookInfo.getChildren().add(buyButton);
 
+        buyButton.getStyleClass().add("add-button");
         bookInfo.getStyleClass().add("book-info");
+        bookInfo.setHgrow(details, Priority.ALWAYS);
         // Add the HBox to the bookList VBox
         searchResults.getChildren().add(bookInfo); 
+    }
+
+    // update the displayedBooks list with the books that match the filters
+    public void updateDisplayedBooks() {
+        displayedBooks.clear();
+        searchResults.getChildren().clear();
+        // Implement filtering functionality here
+        displayedBooks = base.searchBooks(title, genreOptions, subjectOptions, authorOptions, conditionOptions, null, null, ISBNOptions);
+        for (Book book : displayedBooks) {
+            addBook(book);
+        }
+        System.out.println("Books found: " + displayedBooks.size());
     }
 }

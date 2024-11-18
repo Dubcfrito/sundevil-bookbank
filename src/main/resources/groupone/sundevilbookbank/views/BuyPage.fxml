@@ -27,9 +27,18 @@
                         <VBox spacing="10">
                             <HBox spacing="10" >
                                 <TextField fx:id="authorTextField" promptText="Author Name" HBox.hgrow="ALWAYS"/>
-                                <Button text="🔍" onAction="#handleAuthorFilter"/>
+                                <Button text="🔍" onAction="#handleAuthorSearch"/>
                             </HBox>
                             <VBox fx:id="authorButtonContainer" spacing="10" />
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="ISBN">
+                        <VBox spacing="10">
+                            <HBox spacing="10" >
+                                <TextField fx:id="ISBNTextField" promptText="ISBN Number" HBox.hgrow="ALWAYS"/>
+                                <Button text="🔍" onAction="#handleISBNSearch"/>
+                            </HBox>
+                            <VBox fx:id="ISBNButtonContainer" spacing="10" />
                         </VBox>
                     </TitledPane>
                     <TitledPane text="Condition">
@@ -71,7 +80,7 @@
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </BorderPane.margin>
             <Button text="🔍" onAction="#handleSearch" />
-            <TextField styleClass="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
+            <TextField styleClass="searchField" fx:id="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
             <Button text="🛒" />
         </HBox>
     </top>

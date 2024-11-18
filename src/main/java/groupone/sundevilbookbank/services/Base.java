@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.ResultSet;
+
 import groupone.sundevilbookbank.models.Book;
 
 import org.json.JSONArray;
 import java.net.URISyntaxException;
-import java.sql.ResultSet;
 
 public class Base {
     private final static String DATABASE_URL;
@@ -278,5 +279,161 @@ public class Base {
             System.out.println(e.getMessage());
         }
         return books;
+    }
+
+    public ArrayList<Book> searchBooks(
+        String title,
+        ArrayList<String> genres,
+        ArrayList<String> subjects,
+        ArrayList<String> authors,
+        ArrayList<String> conditions,
+        Double minPrice,
+        Double maxPrice,
+        ArrayList<String> isbns) {
+
+        ArrayList<Book> books = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE 1=1");
+
+        // Append filters dynamically
+        if (title != null && !title.isEmpty()) sql.append(" AND title LIKE ?");
+        if (genres != null && !genres.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < genres.size(); i++) {
+                sql.append("genre LIKE ?");
+                if (i < genres.size() - 1) sql.append(" OR ");
+            }
+            sql.append(")");
+        }
+        if (subjects != null && !subjects.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < subjects.size(); i++) {
+                sql.append("subject LIKE ?");
+                if (i < subjects.size() - 1) sql.append(" OR ");
+            }
+            sql.append(")");
+        }
+        if (authors != null && !authors.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < authors.size(); i++) {
+                sql.append("author LIKE ?");
+                if (i < authors.size() - 1) sql.append(" OR ");
+            }
+            sql.append(")");
+        }
+        if (conditions != null && !conditions.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < conditions.size(); i++) {
+                sql.append("condition LIKE ?");
+                if (i < conditions.size() - 1) sql.append(" OR ");
+            }
+            sql.append(")");
+        }
+        if (minPrice != null) sql.append(" AND price >= ?");
+        if (maxPrice != null) sql.append(" AND price <= ?");
+
+        if (isbns != null && !isbns.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < isbns.size(); i++) {
+                sql.append("ISBN LIKE ?");
+                if (i < isbns.size() - 1) sql.append(" OR ");
+            }
+            sql.append(")");
+        }
+
+        try (Connection conn = connect();
+            PreparedStatement stmt =  conn.prepareStatement(sql.toString())) {
+
+            int paramIndex = 1;
+
+            // Set title
+            if (title != null && !title.isEmpty()) stmt.setString(paramIndex++, "%" + title + "%");
+
+            // Set genres
+            if (genres != null && !genres.isEmpty()) {
+                for (String genre : genres) {
+                    stmt.setString(paramIndex++, "%" + genre + "%");
+                }
+            }
+
+            // Set subjects
+            if (subjects != null && !subjects.isEmpty()) {
+                for (String subject : subjects) {
+                    stmt.setString(paramIndex++, "%" + subject + "%");
+                }
+            }
+
+            // Set authors
+            if (authors != null && !authors.isEmpty()) {
+                for (String author : authors) {
+                    stmt.setString(paramIndex++, "%" + author + "%");
+                }
+            }
+
+            // Set conditions
+            if (conditions != null && !conditions.isEmpty()) {
+                for (String condition : conditions) {
+                    stmt.setString(paramIndex++, "%" + condition + "%");
+                }
+            }
+
+            // Set price range
+            if (minPrice != null) stmt.setDouble(paramIndex++, minPrice);
+            if (maxPrice != null) stmt.setDouble(paramIndex++, maxPrice);
+
+            // Set ISBNs
+            if (isbns != null && !isbns.isEmpty()) {
+                for (String isbn : isbns) {
+                    stmt.setString(paramIndex++, "%" + isbn + "%");
+                }
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                books.add(new Book(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("genre"),
+                    rs.getString("subject"),
+                    rs.getString("ISBN"),
+                    rs.getString("condition"),
+                    rs.getString("description"),
+                    rs.getString("price"),
+                    rs.getString("status"),
+                    rs.getString("images")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+    
+    public void updateBook(int bookID, String title, String author, String genre, String subject, String ISBN, String condition, String description, String price, String status, String images) {
+        String updateSQL = "UPDATE books SET title = ?, author = ?, genre = ?, subject = ?, ISBN = ?, condition = ?, description = ?, price = ?, status = ?, images = ? WHERE id = ?";
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setString(1, title);
+            pstmt.setString(2, author);
+            pstmt.setString(3, genre);
+            pstmt.setString(4, subject);
+            pstmt.setString(5, ISBN);
+            pstmt.setString(6, condition);
+            pstmt.setString(7, description);
+            pstmt.setString(8, price);
+            pstmt.setString(9, status);
+            pstmt.setString(10, images);
+            pstmt.setInt(11, bookID);
+    
+            // Execute the query
+            pstmt.executeUpdate();
+            System.out.println("Book updated in base.db.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

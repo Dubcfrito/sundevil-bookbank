@@ -88,3 +88,18 @@ BorderPane {
     -fx-border-style: solid;
     -fx-border-width: 2;
 }
+
+.add-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 20px;
+    -fx-background-radius: 150;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 48px;
+}
+
+.add-button:hover {
+    -fx-background-color: #568196;
+    -fx-text-fill: #F8F2DC
+}
