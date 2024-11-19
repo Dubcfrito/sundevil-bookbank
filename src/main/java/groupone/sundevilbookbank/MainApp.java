@@ -23,10 +23,10 @@ public class MainApp extends Application {
 
         // Create dummy Orders with Books
         Order order1 = new Order(1001, "seller1", "buyer1", "2024-11-15", "Completed", "$15", "2024-11-14");
-        order1.addBook(new Book(1, "Introduction to Java", "John Smith", "Programming", "Java Basics", "123456789", "Good", "Learn Java", "$15", "Sold", "/groupone/sundevilbookbank/images/default_book.png"));
+        order1.addBook(new Book(1, 2, "Introduction to Java", "John Smith", "Programming", "Java Basics", "123456789", "Good", "Learn Java", "$15", "Sold", "/groupone/sundevilbookbank/images/default_book.png"));
 
         Order order2 = new Order(1002, "seller2", "buyer2", "2024-11-10", "Pending", "$20", "2024-11-09");
-        order2.addBook(new Book(2, "Data Structures and Algorithms", "Jane Doe", "Computer Science", "Data Structures", "987654321", "Like New", "Advanced topics in data structures", "$20", "Pending", "/groupone/sundevilbookbank/images/default_book.png"));
+        order2.addBook(new Book(2, 2, "Data Structures and Algorithms", "Jane Doe", "Computer Science", "Data Structures", "987654321", "Like New", "Advanced topics in data structures", "$20", "Pending", "/groupone/sundevilbookbank/images/default_book.png"));
 
         // Add orders to account
         testAccount.addOrder(order1);
