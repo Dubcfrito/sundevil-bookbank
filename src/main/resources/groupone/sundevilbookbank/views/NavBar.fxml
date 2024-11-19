@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
 
 <HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="groupone.sundevilbookbank.controllers.NavBarController"
-      style="-fx-background-color: #8a0d37;" spacing="10" alignment="CENTER" prefHeight="50">
+      style="-fx-background-color: #8a0d37;" alignment="CENTER" spacing="10" prefHeight="50">
 
-    <!-- NavBar Buttons -->
-    <children>
-        <Text text="Sun Devil Book Bank" style="-fx-fill: white; -fx-font-size: 20;" />
-        <Button fx:id="homeButton" text="Home" style="-fx-background-color: #FFA500; -fx-text-fill: black;"/>
-        <Button fx:id="accountButton" text="Account" style="-fx-background-color: #FFA500; -fx-text-fill: black;"/>
-    </children>
+    <!-- Logo Button with Margins -->
+    <Region prefWidth="10" />
+
+    <StackPane>
+        <ImageView fx:id="miniLogoView" fitWidth="50" preserveRatio="true" />
+        <Button fx:id="logoButton" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" />
+    </StackPane>
+
+    <Region HBox.hgrow="ALWAYS" />
+
+    <!-- Title Text with Updated Style -->
+    <Text fx:id="titleText" text="Sun Devil Book Bank"
+          style="-fx-font-family: 'Inter'; -fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #FFA500;" />
+
+    <Region HBox.hgrow="ALWAYS" />
+
+    <!-- Account Button with Margins -->
+    <StackPane>
+        <ImageView fx:id="accountButtonView" fitWidth="30" preserveRatio="true" />
+        <Button fx:id="accountButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
+    </StackPane>
+
+    <Region prefWidth="10" />
+    <Region prefHeight="590" />
+
 </HBox>
