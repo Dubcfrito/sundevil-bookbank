@@ -25,7 +25,7 @@ public class PageLoader {
             e.printStackTrace();
         }
     }
-
+    
     // Updated to accept two different types for controller and data
     public static <C, D> void loadPageWithData(String fxml, DataInjector<C, D> injector, D data) {
         try {
