@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
+
     private static int currentPageIndex = 0;
 
     @Override
@@ -34,6 +35,7 @@ public class MainApp extends Application {
         // Add pages to the list
         pages.add("LoginPage.fxml");
         pages.add("LandingPage.fxml");
+        pages.add("BuyPage.fxml");
         pages.add("AccountPage.fxml");
         pages.add("ReviewOrder.fxml");
         pages.add("PurchaseConfirmation.fxml");
