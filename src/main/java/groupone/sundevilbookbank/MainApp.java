@@ -49,9 +49,14 @@ public class MainApp extends Application {
         PageLoader.loadPage(pages.get(currentPageIndex));
     }
 
-    public static void nextPage() {
-        currentPageIndex = (currentPageIndex + 1) % pages.size();
-        PageLoader.loadPage(pages.get(currentPageIndex));
+    public static void goToPage(int pageIndex, Account currAccount, Order currOrder) {
+        if (pageIndex >= 0 && pageIndex < pages.size()) {
+            currentPageIndex = pageIndex;
+            PageLoader.loadPage(pages.get(currentPageIndex));
+
+        } else {
+            System.out.println("Invalid page index" + pageIndex);
+        }   
     }
 
     public static void main(String[] args) {

@@ -436,4 +436,6 @@ public class Base {
             System.out.println(e.getMessage());
         }
     }
+
+    public boolean validationLogin() {return false;}
 }

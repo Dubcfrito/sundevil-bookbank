@@ -1,5 +1,6 @@
 package groupone.sundevilbookbank.controllers;
 
+import groupone.sundevilbookbank.MainApp;
 import javafx.fxml.FXML;
 import groupone.sundevilbookbank.utils.PageLoader;
 import javafx.scene.control.Button;
@@ -49,15 +50,21 @@ public class LoginPageController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         // Add login validation or navigation logic here
+        
     }
 
     @FXML
     private void handleSignUpAction() {
-        PageLoader.loadPage("SignUpPage.fxml");
+        //PageLoader.loadPage("SignUpPage.fxml");
+        // Logic for sign-up action
+        MainApp.goToPage(1, null, null);
     }
 
     @FXML
     private void handleForgotPasswordAction() {
-        PageLoader.loadPage("ForgotPasswordPage.fxml");
+        //PageLoader.loadPage("ForgotPasswordPage.fxml");
+
+        // Logic for forgot password action
+        MainApp.goToPage(1, null, null);
     }
 }

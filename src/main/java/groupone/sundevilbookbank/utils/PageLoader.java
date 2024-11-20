@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class PageLoader {
 
@@ -38,6 +39,19 @@ public class PageLoader {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static <T> void loadPageWithData(String fxmlPath, Consumer<T> dataConsumer) {
+        try {
+            FXMLLoader loader = new FXMLLoader(PageLoader.class.getResource(fxmlPath));
+            Scene scene = new Scene(loader.load());
+            T controller = loader.getController();
+            dataConsumer.accept(controller);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
