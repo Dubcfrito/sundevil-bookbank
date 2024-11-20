@@ -73,7 +73,6 @@
         </ScrollPane>
     </center>
 
-    <!-- Top for search bar (optional) -->
     <top>
         <HBox styleClass="searchBar">
             <BorderPane.margin>
@@ -81,7 +80,7 @@
             </BorderPane.margin>
             <Button text="🔍" onAction="#handleSearch" />
             <TextField styleClass="searchField" fx:id="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
-            <Button text="🛒" />
+            <Button text="🛒" onAction='#handleCart' />
         </HBox>
     </top>
 </BorderPane>

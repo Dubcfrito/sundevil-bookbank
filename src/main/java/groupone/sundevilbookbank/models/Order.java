@@ -12,6 +12,7 @@ public class Order {
     private String orderTotal;
     private String orderSellDate;
 
+    //constructors
     public Order(int orderNumber, String sellerID, String buyerID, String orderDate, String orderStatus, String orderTotal, String orderSellDate) {
         this.orderNumber = orderNumber;
         this.orderContent = new ArrayList<Book>();
@@ -23,6 +24,16 @@ public class Order {
         this.orderSellDate = orderSellDate;
     }
 
+    public Order() {
+        this.orderNumber = -1;
+        this.orderContent = new ArrayList<Book>();
+        this.sellerID = "";
+        this.buyerID = "";
+        this.orderDate = "";
+        this.orderStatus = "";
+        this.orderTotal = "";
+        this.orderSellDate = "";
+    }
     //getters and setters
     public int getOrderNumber() {
         return orderNumber;

@@ -9,9 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import groupone.sundevilbookbank.MainApp;
 import groupone.sundevilbookbank.models.Book;
+import groupone.sundevilbookbank.models.Order;
 import groupone.sundevilbookbank.services.Base;
-
+import groupone.sundevilbookbank.utils.GlobalData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -32,6 +34,9 @@ import javafx.stage.Stage;
 
 public class BuyPageController {
     private Base base = new Base();
+
+    // Order object to store the current order
+    Order order;
 
     // Filter options
     String title = null;
@@ -90,7 +95,14 @@ public class BuyPageController {
     public void initialize() {
         // Set up any initial configurations if needed
         System.out.println("Bookstore page loaded.");
-        System.out.println(subjectButtonContainer);
+
+        // Create a new order if one does not exist
+        if (GlobalData.getCurrentOrder() == null) {
+            GlobalData.setCurrentOrder(new Order());
+    
+        }
+
+        order = GlobalData.getCurrentOrder();
 
         // use getallsubjects() to get all subjects from the database and add each subject as a checkbox to subjectButtonContainer
         ArrayList<String> subjects = base.getAllSubjects();
@@ -111,6 +123,14 @@ public class BuyPageController {
         }
     }
 
+    // handle cart button
+    @FXML
+    private void handleCart() {
+        GlobalData.setCurrentOrder(order);
+        MainApp.goToPage(4, null, null);
+        System.out.println("Cart button clicked!");
+    }
+    
     // Event handler for search functionality
     @FXML
     private void handleSearch() {
@@ -302,7 +322,7 @@ public class BuyPageController {
 
         // 3rd element, buy button
         Button buyButton = new Button("+");
-        buyButton.setOnAction(e -> System.out.println("Buy button clicked!"));
+        buyButton.setOnAction(e -> addBookToCart(book));
         bookInfo.getChildren().add(buyButton);
 
         buyButton.getStyleClass().add("add-button");
@@ -312,6 +332,11 @@ public class BuyPageController {
         searchResults.getChildren().add(bookInfo); 
     }
 
+    public void addBookToCart(Book book) {
+        // Add book to cart
+        order.addBook(book);
+        System.out.println("Book added to cart: " + book.getTitle());
+    }
     // update the displayedBooks list with the books that match the filters
     public void updateDisplayedBooks() {
         displayedBooks.clear();
