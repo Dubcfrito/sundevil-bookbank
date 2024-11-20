@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.SignUpPageController"
+      prefWidth="1280" prefHeight="720">
+
+    <!-- Left Pane with Logo -->
+    <children>
+        <StackPane fx:id="leftPane" style="-fx-background-color: #F8F2DC;" HBox.hgrow="ALWAYS">
+            <children>
+                <ImageView fx:id="logoView" fitWidth="400" preserveRatio="true" />
+            </children>
+        </StackPane>
+
+        <!-- Right Pane with Sign-Up Form -->
+        <VBox fx:id="rightPane" alignment="CENTER" spacing="20" style="-fx-background-color: #8a0d37; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+            <effect>
+                <DropShadow radius="5" color="rgba(0, 0, 0, 0.25)"/>
+            </effect>
+
+            <children>
+                <Label fx:id="title" text="Sign Up" textFill="#F8F2DC"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 72;"
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                <Rectangle fx:id="underline" width="400" height="10" fill="#F8F2DC"/>
+
+                <!-- Username Field -->
+                <TextField fx:id="usernameField" promptText="Username"
+                           style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #568196; -fx-prompt-text-fill: white; -fx-text-fill: white; -fx-background-radius: 19; -fx-padding: 0 0 0 15;"
+                           maxWidth="360" prefHeight="70"/>
+
+                <!-- Email Field -->
+                <TextField fx:id="emailField" promptText="Email"
+                           style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #568196; -fx-prompt-text-fill: white; -fx-text-fill: white; -fx-background-radius: 19; -fx-padding: 0 0 0 15;"
+                           maxWidth="360" prefHeight="70"/>
+
+                <!-- Password Field -->
+                <PasswordField fx:id="passwordField" promptText="Password"
+                               style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #568196; -fx-prompt-text-fill: white; -fx-text-fill: white; -fx-background-radius: 19; -fx-padding: 0 0 0 15;"
+                               maxWidth="360" prefHeight="70"/>
+
+                <!-- Confirm Password Field -->
+                <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password"
+                               style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #568196; -fx-prompt-text-fill: white; -fx-text-fill: white; -fx-background-radius: 19; -fx-padding: 0 0 0 15;"
+                               maxWidth="360" prefHeight="70"/>
+
+                <!-- Sign Up Button -->
+                <Button fx:id="signUpButton" text="Sign Up" onAction="#handleSignUpAction"
+                        maxWidth="360" prefHeight="70"
+                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
+
+                <!-- Back to Login Button -->
+                <Button fx:id="backButton" text="Back to Login" onAction="#handleBackAction"
+                        maxWidth="360" prefHeight="70"
+                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
+            </children>
+        </VBox>
+    </children>
+</HBox>
