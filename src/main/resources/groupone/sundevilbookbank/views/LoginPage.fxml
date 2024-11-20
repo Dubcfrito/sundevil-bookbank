@@ -50,11 +50,11 @@
                         maxWidth="360" prefHeight="70" 
                         style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
                 
-                <Button fx:id="signUpButton" text="Sign up" 
+                <Button fx:id="signUpButton" onAction="#handleSignUpAction" text="Sign up" 
                         maxWidth="360" prefHeight="70" 
                         style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
                 
-                <Button fx:id="forgotPasswordButton" text="Forgot Password" 
+                <Button fx:id="forgotPasswordButton" onAction="#handleForgotPasswordAction" text="Forgot Password" 
                         maxWidth="360" prefHeight="70" 
                         style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
             </children>

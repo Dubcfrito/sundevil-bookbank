@@ -34,6 +34,7 @@ public class MainApp extends Application {
 
         // Add pages to the list
         pages.add("LoginPage.fxml");
+
         pages.add("LandingPage.fxml");
         pages.add("BuyPage.fxml");
         pages.add("AccountPage.fxml");
