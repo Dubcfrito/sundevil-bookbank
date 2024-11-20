@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo2.SellController"
+            style="-fx-background-color: #F8F2DC;"
+            prefHeight="800.0" prefWidth="800.0">
+
+    <!-- Navbar Placeholder -->
+    <HBox prefHeight="50.0" prefWidth="800.0" style="-fx-background-color: transparent;" />
+
+    <!-- Close Button -->
+    <Button text="X"
+            style="-fx-background-color: transparent; -fx-text-fill: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 24; -fx-font-weight: bold;"
+            prefWidth="30.0"
+            prefHeight="30.0"
+            AnchorPane.topAnchor="10.0"
+            AnchorPane.rightAnchor="20.0"
+            onAction="#handleClose" />
+
+    <!-- Title -->
+    <Label text="Sell a Book"
+           style="-fx-font-family: 'Inter'; -fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #000000;"
+           alignment="CENTER"
+           AnchorPane.leftAnchor="0.0"
+           AnchorPane.rightAnchor="0.0"
+           layoutY="70.0" />
+
+    <!-- Main Form -->
+    <VBox spacing="15" layoutX="50.0" layoutY="120.0" prefWidth="700.0">
+        <!-- Title and Original Price -->
+        <HBox spacing="30">
+            <VBox spacing="5">
+                <Label text="Title" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                <TextField fx:id="titleField" promptText="Title Example" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Original Price" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                <TextField fx:id="priceField" promptText="e.g., 395.99" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+            </VBox>
+        </HBox>
+
+        <!-- Description -->
+        <VBox spacing="5">
+            <Label text="Add Description (Optional)" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+            <TextArea fx:id="descriptionField" promptText="e.g., hardcover, only used for one year"
+                      style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" prefRowCount="3" />
+        </VBox>
+
+        <!-- Info Section -->
+        <VBox spacing="5">
+            <Label text="Info" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+            <HBox spacing="20">
+                <VBox spacing="5">
+                    <Label text="Year Published" style="-fx-font-family: 'Inter'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <TextField fx:id="yearField" promptText="Enter" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Author" style="-fx-font-family: 'Inter'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <TextField fx:id="authorField" promptText="Enter Author Name" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+                </VBox>
+            </HBox>
+            <HBox spacing="20">
+                <VBox spacing="5">
+                    <Label text="Genre" style="-fx-font-family: 'Inter'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <ComboBox fx:id="genreBox" promptText="Select" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Condition" style="-fx-font-family: 'Inter'; -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <ComboBox fx:id="conditionBox" promptText="Select" style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Add Photos -->
+        <VBox spacing="5">
+            <Label text="Add Photos" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+            <HBox spacing="10">
+                <Button text="+" style="-fx-background-color: #FFA500; -fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold;" prefWidth="50" prefHeight="50" />
+                <Button text="+" style="-fx-background-color: #FFA500; -fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold;" prefWidth="50" prefHeight="50" />
+                <Button text="+" style="-fx-background-color: #FFA500; -fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold;" prefWidth="50" prefHeight="50" />
+                <Button text="+" style="-fx-background-color: #FFA500; -fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold;" prefWidth="50" prefHeight="50" />
+            </HBox>
+        </VBox>
+
+        <!-- Estimated Buying Price -->
+        <VBox spacing="5">
+            <Label text="Estimated Buying Price" style="-fx-font-family: 'Inter'; -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+            <TextField fx:id="estimatedPriceField" promptText="e.g., 200.00"
+                       style="-fx-border-color: #8A0D37; -fx-font-family: 'Inter'; -fx-font-size: 16;"
+                       prefWidth="300" />
+        </VBox>
+    </VBox>
+
+    <!-- List My Book Button -->
+    <Button text="List My Book"
+            fx:id="listBookButton"
+            style="-fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 24;"
+            prefWidth="250" prefHeight="60"
+            AnchorPane.bottomAnchor="30.0"
+            AnchorPane.leftAnchor="275.0"
+            AnchorPane.rightAnchor="275.0"
+            onAction="#handleListBook" />
+
+</AnchorPane>
