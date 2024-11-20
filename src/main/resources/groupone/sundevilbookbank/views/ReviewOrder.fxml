@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.ReviewOrderController"
+      prefWidth="1280" prefHeight="720">
+
+        <!--This is going to be where the image of the book will be. Currently is a gray rectangle for example purposes.-->
+        <VBox fx:id="reviewOrderPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS"> 
+
+            <Rectangle fx:id="image" width="250" height="400" fill="#D9D9D9"/>
+        
+        </VBox>
+
+        <!-- Review Order Page WITHOUT the Navigation Bar -->
+        <VBox fx:id="reviewOrderPage" alignment="CENTER" spacing="25" style="-fx-background-color: #F8F2DC;" HBox.hgrow="ALWAYS">
+
+            <children>
+                <Label fx:id="caption" text="Review Your Order" textFill="#000000" 
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 60;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                <HBox>
+                       <Label fx:id="bookPrice" text="Price: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the price of the book(s)-->
+                       <Label fx:id="price" text="\$200.00" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookTitle" text="Title: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the title of the book(s)-->
+                       <Label fx:id="title" text="Title Example" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookAuthor" text="Author: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the author of the book(s)-->
+                       <Label fx:id="author" text="John Doe" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookSubject" text="Subject: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the subject of the book(s)-->
+                       <Label fx:id="sibject" text="Math" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookGenre" text="Genre: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the genre of the book(s)-->
+                       <Label fx:id="genre" text="Discrete Mathematics" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookISBN" text="ISBN: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the ISBN of the book(s)-->
+                       <Label fx:id="ISBN" text="000000000" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookCondition" text="Condition: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the condition of the book(s)-->
+                       <Label fx:id="condition" text="Used Like New" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+                <HBox>
+                       <Label fx:id="bookDescription" text="Description: " textFill="000000"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+
+                        <!--Should be a variable that holds the description of the book(s)-->
+                       <Label fx:id="description" text="This class was confusing" textFill="#568196"
+                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;" 
+                       alignment="CENTER" maxWidth="Infinity"/>
+                </HBox>
+
+            </children>
+
+        </VBox>
+
+        <!--Place Order button on the right side of the window.-->
+        <VBox fx:id="rightSide" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS"> 
+            
+            <Button fx:id="placeOrder" text="Place Order" 
+                prefWidth="360" prefHeight="70" 
+                style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/>
+    
+        </VBox>
+
+</HBox>

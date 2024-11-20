@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Account {
     private int accountID;
@@ -8,6 +9,7 @@ public class Account {
     private String password;
     private String email;
     private ArrayList<Book> listings;
+    private List<Order> orders;
 
 
     public Account(int accountID, String username, String password, String email) {
@@ -16,6 +18,7 @@ public class Account {
         this.password = password;
         this.email = email;
         this.listings = new ArrayList<Book>();
+        this.orders = new ArrayList<>();
     }
 
     //default constructor
@@ -63,5 +66,14 @@ public class Account {
     }
     public void removeListing(Book book) {
         this.listings.remove(book);
+    }
+    public List<Order> getOrders() {
+        return orders;
+    }
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+    public void addOrder(Order order) {
+        this.orders.add(order);
     }
 }

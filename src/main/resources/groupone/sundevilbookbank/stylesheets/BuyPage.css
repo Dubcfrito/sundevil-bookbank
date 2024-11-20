@@ -1,0 +1,105 @@
+BorderPane {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 12;
+}
+
+.parameters {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 24;
+}
+
+.results {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 10;
+}
+
+.topbar {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-padding: 10;
+}
+
+.searchBar {
+    -fx-alignment: center-left;
+    -fx-padding: 5;
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-radius: 150;
+    -fx-border-width: 2;
+}
+
+.searchBar Button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 20px;
+    -fx-background-radius: 150;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 48px;
+}
+
+.searchBar Button:hover {
+    -fx-background-color: #568196;
+    -fx-text-fill: #F8F2DC
+}
+
+.searchBar .searchField {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #B0B0B0;
+    -fx-border-color: transparent;
+    -fx-font-size: 20px;
+    -fx-pref-height: 40px;
+}
+
+.accordion {
+    -fx-background-color: transparent;
+}
+
+.center {
+    -fx-background-color: #F8F2DC;
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+#searchResults {
+    -fx-background-color: #F8F2DC;
+    -fx-padding: 10;
+}
+
+.book-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.book-info {
+    -fx-border-color: #568196;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+}
+
+.add-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 20px;
+    -fx-background-radius: 150;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 48px;
+}
+
+.add-button:hover {
+    -fx-background-color: #568196;
+    -fx-text-fill: #F8F2DC
+}

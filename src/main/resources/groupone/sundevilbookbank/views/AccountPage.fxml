@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="groupone.sundevilbookbank.controllers.AccountPageController"
@@ -10,9 +14,33 @@
 
     <children>
         <fx:include source="NavBar.fxml"/>
+        
+        <!-- Profile and Account Info Section -->
+        <HBox alignment="CENTER" spacing="20">
+            <ImageView fx:id="profilePicture" fitWidth="100" fitHeight="100"/>
+            <VBox>
+                <Text text="My Account" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Text text="Name: xxxx" style="-fx-font-size: 18px;"/>
+                <Text text="My Transactions" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            </VBox>
+        </HBox>
+        
+        <!-- Scrollable Transaction List Section -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="500">
+            <VBox fx:id="transactionList" spacing="10">
+                <fx:include source="TransactionItem.fxml" />
+                <!-- Repeat TransactionItem.fxml as needed -->
+            </VBox>
+        </ScrollPane>
 
-        <StackPane>
-            <Region style="-fx-background-color: transparent;" />
-        </StackPane>
+        <Region VBox.vgrow="ALWAYS" />
+        
+        <HBox alignment="CENTER">
+            <Button text="Log Out" fx:id="logoutButton" 
+                style="-fx-background-color: #8a0d37; -fx-text-fill: white;"
+                maxWidth="150" />
+        </HBox>
+
+        <Region prefHeight="10" />
     </children>
 </VBox>
