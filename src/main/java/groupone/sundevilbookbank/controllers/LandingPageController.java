@@ -1,5 +1,6 @@
 package groupone.sundevilbookbank.controllers;
 
+import groupone.sundevilbookbank.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
@@ -19,6 +20,16 @@ public class LandingPageController {
         //Set fonts for the buttons
         purchaseABook.setFont(customFont);
         sellABook.setFont(customFont);
+
+		purchaseABook.setOnAction(e -> handlePurchaseButton());
+		sellABook.setOnAction(e -> handleSellButton());
     }
 
+	private void handlePurchaseButton() {
+		MainApp.goToPage(4);
+	}
+
+	private void handleSellButton() {
+		MainApp.goToPage(5);
+	}
 }

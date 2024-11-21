@@ -11,6 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 import java.io.IOException;
 
@@ -41,8 +44,19 @@ public class AccountPageController {
 
     @FXML
     private void handleLogout() {
-        System.out.println("Logout button clicked");
-        // Add logout navigation logic here
+		try {
+			System.out.println("Logout button clicked");
+			GlobalData.setCurrentAccount(null);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/groupone/sundevilbookbank/views/LoginPage.fxml"));
+			Parent loginPage = loader.load();
+
+			Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+			currentStage.setScene(new Scene(loginPage));
+			currentStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Error loading loginpage");
+		}
     }
 
     public void setCurrentAccount(Account account) {
