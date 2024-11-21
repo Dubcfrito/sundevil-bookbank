@@ -74,13 +74,16 @@
     </center>
 
     <top>
-        <HBox styleClass="searchBar">
-            <BorderPane.margin>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </BorderPane.margin>
-            <Button text="🔍" onAction="#handleSearch" />
-            <TextField styleClass="searchField" fx:id="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
-            <Button text="🛒" onAction='#handleCart' />
-        </HBox>
-    </top>
+		<VBox> 
+			<fx:include source="NavBar.fxml" />	
+			<HBox styleClass="searchBar">
+				<BorderPane.margin>
+					<Insets top="10" right="10" bottom="10" left="10"/>
+				</BorderPane.margin>
+				<Button text="🔍" onAction="#handleSearch" />
+				<TextField styleClass="searchField" fx:id="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
+				<Button text="🛒" onAction='#handleCart' />
+			</HBox>
+		</VBox>
+	</top>
 </BorderPane>
