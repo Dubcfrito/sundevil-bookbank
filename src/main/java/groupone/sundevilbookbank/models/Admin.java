@@ -1,12 +1,14 @@
 package groupone.sundevilbookbank.models;
 
+import java.util.ArrayList;
+
 public class Admin extends Account{
     private int adminID;
     private String adminLevel;
     private String log; //log of admin actions but will be stored in a database
 
-    public Admin(int accountID, String username, String password, String email, int adminID, String adminLevel) {
-        super(accountID, username, password, email);
+    public Admin(int accountID, String username, String password, String email, ArrayList<Book> listings, ArrayList<Order> orders, int adminID, String adminLevel) {
+        super(accountID, username, password, email, listings, orders);
         this.adminID = adminID;
         this.adminLevel = adminLevel;
     }

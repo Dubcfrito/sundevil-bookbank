@@ -12,13 +12,13 @@ public class Account {
     private List<Order> orders;
 
 
-    public Account(int accountID, String username, String password, String email) {
+    public Account(int accountID, String username, String password, String email, ArrayList<Book> listings, ArrayList<Order> orders) {
         this.accountID = accountID;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.listings = new ArrayList<Book>();
-        this.orders = new ArrayList<>();
+        this.listings = listings;
+        this.orders = orders;
     }
 
     //default constructor

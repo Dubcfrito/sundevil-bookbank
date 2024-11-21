@@ -5,34 +5,25 @@ import java.util.ArrayList;
 public class Order {
     private int orderNumber;
     private ArrayList<Book> orderContent;
-    private String sellerID;
-    private String buyerID;
-    private String orderDate;
+    private int buyerID;
     private String orderStatus;
     private String orderTotal;
-    private String orderSellDate;
 
     //constructors
-    public Order(int orderNumber, String sellerID, String buyerID, String orderDate, String orderStatus, String orderTotal, String orderSellDate) {
+    public Order(int orderNumber, int buyerID, ArrayList<Book> orderContent, String orderTotal, String orderStatus) {
         this.orderNumber = orderNumber;
-        this.orderContent = new ArrayList<Book>();
-        this.sellerID = sellerID;
         this.buyerID = buyerID;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
+        this.orderContent = orderContent;
         this.orderTotal = orderTotal;
-        this.orderSellDate = orderSellDate;
+        this.orderStatus = orderStatus;
     }
 
     public Order() {
         this.orderNumber = -1;
         this.orderContent = new ArrayList<Book>();
-        this.sellerID = "";
-        this.buyerID = "";
-        this.orderDate = "";
+        this.buyerID = -1;
         this.orderStatus = "";
         this.orderTotal = "";
-        this.orderSellDate = "";
     }
     //getters and setters
     public int getOrderNumber() {
@@ -47,23 +38,11 @@ public class Order {
     public void setOrderContent(ArrayList<Book> orderContent) {
         this.orderContent = orderContent;
     }
-    public String getSellerID() {
-        return sellerID;
-    }
-    public void setSellerID(String sellerID) {
-        this.sellerID = sellerID;
-    }
-    public String getBuyerID() {
+    public int getBuyerID() {
         return buyerID;
     }
-    public void setBuyerID(String buyerID) {
+    public void setBuyerID(int buyerID) {
         this.buyerID = buyerID;
-    }
-    public String getOrderDate() {
-        return orderDate;
-    }
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
     }
     public String getOrderStatus() {
         return orderStatus;
@@ -76,12 +55,6 @@ public class Order {
     }
     public void setOrderTotal(String orderTotal) {
         this.orderTotal = orderTotal;
-    }
-    public String getOrderSellDate() {
-        return orderSellDate;
-    }
-    public void setOrderSellDate(String orderSellDate) {
-        this.orderSellDate = orderSellDate;
     }
     public void addBook(Book book) {
         this.orderContent.add(book);

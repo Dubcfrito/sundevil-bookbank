@@ -46,7 +46,7 @@
                                maxWidth="360" prefHeight="70"/>
 
                 <!-- Buttons with font style -->
-                <Button fx:id="loginButton" text="Login" 
+                <Button fx:id="loginButton" onAction="#handleLoginAction" text="Login" 
                         maxWidth="360" prefHeight="70" 
                         style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #FFA500; -fx-text-fill: black; -fx-background-radius: 19;"/>
                 

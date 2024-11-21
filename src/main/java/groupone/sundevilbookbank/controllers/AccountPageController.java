@@ -2,6 +2,7 @@ package groupone.sundevilbookbank.controllers;
 
 import groupone.sundevilbookbank.models.Account;
 import groupone.sundevilbookbank.models.Order;
+import groupone.sundevilbookbank.utils.GlobalData;
 import groupone.sundevilbookbank.models.Book;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,8 @@ public class AccountPageController {
     @FXML
     public void initialize() {
         // Set default profile picture
+        currentAccount = GlobalData.getCurrentAccount();
+
         profilePicture.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/default_profile.png")));
 
         System.out.println("Initialization complete. Transaction List and Logout button ready.");

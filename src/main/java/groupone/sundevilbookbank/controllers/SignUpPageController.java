@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.controllers;
 
 import groupone.sundevilbookbank.utils.PageLoader;
+import groupone.sundevilbookbank.services.Base;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -50,6 +51,7 @@ public class SignUpPageController {
         } else if (!password.equals(confirmPassword)) {
             showAlert("Error", "Passwords do not match.");
         } else {
+            Base.insertAccount(username, email, password);
             // Implement logic to handle user registration
             showAlert("Success", "User registered successfully!");
             PageLoader.loadPage("LoginPage.fxml");

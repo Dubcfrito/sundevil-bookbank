@@ -1,13 +1,6 @@
 package groupone.sundevilbookbank.controllers;
 
-import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import groupone.sundevilbookbank.MainApp;
 import groupone.sundevilbookbank.models.Book;
@@ -15,22 +8,16 @@ import groupone.sundevilbookbank.models.Order;
 import groupone.sundevilbookbank.services.Base;
 import groupone.sundevilbookbank.utils.GlobalData;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 
 public class BuyPageController {
     private Base base = new Base();
@@ -101,7 +88,7 @@ public class BuyPageController {
             GlobalData.setCurrentOrder(new Order());
     
         }
-
+        
         order = GlobalData.getCurrentOrder();
 
         // use getallsubjects() to get all subjects from the database and add each subject as a checkbox to subjectButtonContainer
@@ -127,7 +114,7 @@ public class BuyPageController {
     @FXML
     private void handleCart() {
         GlobalData.setCurrentOrder(order);
-        MainApp.goToPage(4, null, null);
+        MainApp.goToPage(4);
         System.out.println("Cart button clicked!");
     }
     
@@ -329,7 +316,7 @@ public class BuyPageController {
         bookInfo.getStyleClass().add("book-info");
         bookInfo.setHgrow(details, Priority.ALWAYS);
         // Add the HBox to the bookList VBox
-        searchResults.getChildren().add(bookInfo); 
+        searchResults.getChildren().add(bookInfo);
     }
 
     public void addBookToCart(Book book) {

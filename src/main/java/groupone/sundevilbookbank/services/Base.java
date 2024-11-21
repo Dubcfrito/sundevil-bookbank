@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 
 import groupone.sundevilbookbank.models.Book;
+import groupone.sundevilbookbank.models.Account;
+import groupone.sundevilbookbank.models.Order;
 
 import org.json.JSONArray;
 import java.net.URISyntaxException;
@@ -49,20 +51,21 @@ public class Base {
         createTables();
     }
 
-    public void createTables() {
+    public static void createTables() {
         String accountsTable = 
             "CREATE TABLE IF NOT EXISTS accounts ("
             + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "username TEXT NOT NULL, "
             + "password TEXT NOT NULL, "
             + "email TEXT NOT NULL, "
-            + "listings TEXT DEFAULT '[]');"; // JSON string of book IDs
+            + "listings TEXT DEFAULT '[]', "
+            + "orders TEXT DEFAULT '[]');";
 
         String ordersTable = 
             "CREATE TABLE IF NOT EXISTS orders ("
             + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "bookIDs INTEGER NOT NULL, "
-            + "username TEXT NOT NULL, "
+            + "accountID INTEGER NOT NULL, "
+            + "bookIDs TEXT DEFAULT '[]', "
             + "price REAL NOT NULL, "
             + "status TEXT NOT NULL);";
             
@@ -77,7 +80,7 @@ public class Base {
             + "ISBN TEXT NOT NULL, "
             + "condition TEXT NOT NULL, "
             + "description TEXT, "
-            + "price TEXT NOT NULL, "
+            + "price REAL NOT NULL, "
             + "status TEXT NOT NULL, "
             + "images TEXT);";
         
@@ -92,7 +95,7 @@ public class Base {
         }
     }
 
-    public int getAccountID(String username, String password) {
+    public static int getAccountID(String username, String password) {
         String selectSQL = "SELECT id FROM accounts WHERE username = ? AND password = ?";
         int accountID = -1;
     
@@ -112,8 +115,51 @@ public class Base {
         }
         return accountID;
     }
+    
+    public static Account getAccount(String username, String Password) {
+        String selectSQL = "SELECT * FROM accounts WHERE username = ? AND password = ?";
+        Account account = null;
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setString(1, username);
+            pstmt.setString(2, Password);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                //json array of book ids into arraylist of books
+                JSONArray listings = new JSONArray(rs.getString("listings"));
+                ArrayList<Book> books = new ArrayList<Book>();
+                for (int i = 0; i < listings.length(); i++) {
+                    books.add(getBook(listings.getInt(i)));
+                }
 
-    public int insertAccount(String username, String password, String email) {
+                //json array of order ids into arraylist of orders
+                JSONArray orders = new JSONArray(rs.getString("orders"));
+                ArrayList<Order> orderList = new ArrayList<Order>();
+                for (int i = 0; i < orders.length(); i++) {
+                    orderList.add(getOrder(orders.getInt(i)));
+                }
+
+                account = new Account(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("email"),
+                    books,
+                    orderList
+
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return account;
+    }
+
+    public static int insertAccount(String username, String password, String email) {
         String insertSQL = "INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)";
         int accountId = -1;
     
@@ -144,7 +190,7 @@ public class Base {
         return accountId;
     }
     
-    public void insertOrder(int bookID, String username, String price, String status) {
+    public static void insertOrder(int bookID, String username, String price, String status) {
         String insertSQL = "INSERT INTO orders (bookID, username, price, status) VALUES (?, ?, ?, ?)";
     
         try (Connection conn = connect();
@@ -163,7 +209,7 @@ public class Base {
         }
     }
 
-    public void insertBook(int accountID, String title, String author, String genre, String subject, String ISBN, String condition, String description, String price, String status, String images) {
+    public static void insertBook(int accountID, String title, String author, String genre, String subject, String ISBN, String condition, String description, double price, String status, String images) {
         String insertSQL = "INSERT INTO books (accountID, title, author, genre, subject, ISBN, condition, description, price, status, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String getBookIdSQL = "SELECT last_insert_rowid() AS id";
         String getListingsSQL = "SELECT listings FROM accounts WHERE id = ?";
@@ -185,7 +231,7 @@ public class Base {
             insertBookStmt.setString(6, ISBN);
             insertBookStmt.setString(7, condition);
             insertBookStmt.setString(8, description);
-            insertBookStmt.setString(9, price);
+            insertBookStmt.setDouble(9, price);
             insertBookStmt.setString(10, status);
             insertBookStmt.setString(11, images);
             insertBookStmt.executeUpdate();
@@ -216,8 +262,73 @@ public class Base {
         }
     }
 
+    public static Book getBook(int ID) {
+        String selectSQL = "SELECT * FROM books WHERE id = ?";
+        Book book = null;
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setInt(1, ID);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                book = new Book(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("genre"),
+                    rs.getString("subject"),
+                    rs.getString("ISBN"),
+                    rs.getString("condition"),
+                    rs.getString("description"),
+                    rs.getDouble("price"),
+                    rs.getString("status"),
+                    rs.getString("images")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return book;
+    }
+
+    public static Order getOrder(int ID) {
+        String selectSQL = "SELECT * FROM orders WHERE id = ?";
+        Order order = null;
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setInt(1, ID);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                // json array of book ids into arraylist of books
+                JSONArray bookIDs = new JSONArray(rs.getString("bookIDs"));
+                ArrayList<Book> books = new ArrayList<Book>();
+                for (int i = 0; i < bookIDs.length(); i++) {
+                    books.add(getBook(bookIDs.getInt(i)));
+                }
+                order = new Order(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    books,
+                    rs.getString("price"),
+                    rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return order;
+    }
+    
     // get all subjects in sorted alphabetical list
-    public ArrayList<String> getAllSubjects() {
+    public static ArrayList<String> getAllSubjects() {
         String selectSQL = "SELECT DISTINCT subject FROM books ORDER BY subject ASC";
         ArrayList<String> subjects = new ArrayList<String>();
     
@@ -234,7 +345,7 @@ public class Base {
     }
 
     // get all genres in sorted alphabetical list
-    public ArrayList<String> getAllGenres() {
+    public static ArrayList<String> getAllGenres() {
         String selectSQL = "SELECT DISTINCT genre FROM books ORDER BY genre ASC";
         ArrayList<String> genres = new ArrayList<String>();
     
@@ -251,7 +362,7 @@ public class Base {
     }
 
     // get all books in the database, return as a list of Book objects
-    public ArrayList<Book> getAllBooks() {
+    public static ArrayList<Book> getAllBooks() {
         String selectSQL = "SELECT * FROM books";
         ArrayList<Book> books = new ArrayList<Book>();
     
@@ -269,7 +380,7 @@ public class Base {
                     rs.getString("ISBN"),
                     rs.getString("condition"),
                     rs.getString("description"),
-                    rs.getString("price"),
+                    rs.getDouble("price"),
                     rs.getString("status"),
                     rs.getString("images")
                 );
@@ -281,7 +392,7 @@ public class Base {
         return books;
     }
 
-    public ArrayList<Book> searchBooks(
+    public static ArrayList<Book> searchBooks(
         String title,
         ArrayList<String> genres,
         ArrayList<String> subjects,
@@ -399,7 +510,7 @@ public class Base {
                     rs.getString("ISBN"),
                     rs.getString("condition"),
                     rs.getString("description"),
-                    rs.getString("price"),
+                    rs.getDouble("price"),
                     rs.getString("status"),
                     rs.getString("images")
                 ));
@@ -411,7 +522,7 @@ public class Base {
         return books;
     }
     
-    public void updateBook(int bookID, String title, String author, String genre, String subject, String ISBN, String condition, String description, String price, String status, String images) {
+    public static void updateBook(int bookID, String title, String author, String genre, String subject, String ISBN, String condition, String description, String price, String status, String images) {
         String updateSQL = "UPDATE books SET title = ?, author = ?, genre = ?, subject = ?, ISBN = ?, condition = ?, description = ?, price = ?, status = ?, images = ? WHERE id = ?";
     
         try (Connection conn = connect();
@@ -437,5 +548,25 @@ public class Base {
         }
     }
 
-    public boolean validationLogin() {return false;}
+    public static boolean validationLogin(String username, String password) {
+        String selectSQL = "SELECT * FROM accounts WHERE username = ? AND password = ?";
+        boolean isValid = false;
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                isValid = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return isValid;
+
+    }
 }
