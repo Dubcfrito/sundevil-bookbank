@@ -14,7 +14,7 @@ public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
 
-    private static int currentPageIndex = 6;
+    private static int currentPageIndex = 0;
 
     @Override
     public void start(Stage primaryStage) {
