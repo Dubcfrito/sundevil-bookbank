@@ -33,6 +33,8 @@ public class MainApp extends Application {
         testAccount.addOrder(order2);
 
         // Add pages to the list
+        pages.add("sell.fxml");
+        pages.add("sell.fxml");
         pages.add("LoginPage.fxml");
 
         pages.add("LandingPage.fxml");
