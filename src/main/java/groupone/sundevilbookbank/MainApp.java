@@ -4,6 +4,7 @@ import groupone.sundevilbookbank.controllers.AccountPageController;
 import groupone.sundevilbookbank.models.Account;
 import groupone.sundevilbookbank.models.Book;
 import groupone.sundevilbookbank.models.Order;
+import groupone.sundevilbookbank.services.Base;
 import groupone.sundevilbookbank.utils.GlobalData;
 import groupone.sundevilbookbank.utils.PageLoader;
 import javafx.application.Application;
@@ -15,10 +16,19 @@ public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
 
-    private static int currentPageIndex = 0;
+    private static int currentPageIndex = 4;
 
     @Override
     public void start(Stage primaryStage) {
+        // Test Account
+        GlobalData.setCurrentAccount(Base.getAccount("Jack", "Klebonis"));
+        GlobalData.setCurrentOrder(new Order(Base.getAccountID("Jack", "Password")));
+        // add books to test order
+        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
+        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
+        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
+        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
+
         // Add pages to the list with index          \/
         pages.add("LoginPage.fxml");            // 0
         pages.add("SignUpPage.fxml");           // 1

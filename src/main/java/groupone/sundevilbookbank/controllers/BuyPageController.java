@@ -318,6 +318,6 @@ public class BuyPageController {
     }
 
     public void handleCartButton() {
-        MainApp.goToPage(4);
+        MainApp.goToPage(8);
     }
 }

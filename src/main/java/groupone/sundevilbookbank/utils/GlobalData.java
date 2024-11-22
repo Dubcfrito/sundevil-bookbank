@@ -19,7 +19,7 @@ public class GlobalData {
         GlobalData.currentOrder = currentOrder;
     }
     public static void addBookToOrder(Book book) {
-        currentOrder.addBook(book);
+        currentOrder.getOrderContent().add(book);
     }
     public static void removeBookFromOrder(Book book) {
         currentOrder.removeBook(book);

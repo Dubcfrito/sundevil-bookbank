@@ -9,16 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 
 public class ShoppingCartController {
-
-    // Order object to store the current order
-    Order order;
-
     @FXML
-    private VBox searchResults; // The VBox for displaying search results
+    private VBox cartSummary; // The VBox for displaying cart
 
     @FXML
     private VBox pricingSummary; // The VBox for displaying subtotal, tax, and final total of order
@@ -26,9 +23,22 @@ public class ShoppingCartController {
     // This method is automatically called after the FXML elements are loaded
     @FXML
     public void initialize() {
-        
-        order = GlobalData.getCurrentOrder();
+        for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
+            addBook(book);
+        }
+        calculatePrice();
+    }
 
+    @FXML
+    public void handleMinusButton() {
+        // Remove a book from the order
+        GlobalData.getCurrentOrder().removeBook(null);
+        // Update the cart display
+        cartSummary.getChildren().clear();
+        for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
+            addBook(book);
+        }
+        calculatePrice();
     }
 
     public void addBook(Book book) {
@@ -82,17 +92,26 @@ public class ShoppingCartController {
 
         details.getColumnConstraints().addAll(col1, col2, col3);
 
+        // 3rd element, buy button
+        Button buyButton = new Button("-");
+        buyButton.setOnAction(e -> removeBook(book));
+        bookInfo.getChildren().add(buyButton);
+
+        buyButton.getStyleClass().add("add-button");
+        bookInfo.getStyleClass().add("book-info");
+        bookInfo.setHgrow(details, Priority.ALWAYS);
+
         // Add gridpane to HBox
         bookInfo.getChildren().add(details);
 
         // Add the HBox to the bookList VBox
-        searchResults.getChildren().add(bookInfo);
+        cartSummary.getChildren().add(bookInfo);
     }
 
     //This function calculates the subtotal, tax, and final total of the order.
     public void calculatePrice() {
-
-        if(order.getOrderContent() == null) {
+        pricingSummary.getChildren().clear();
+        if(GlobalData.getCurrentOrder().getOrderContent() == null) {
             //Print some message that says the shopping cart is empty.
             Label emptyCart = new Label("Your shopping cart is empty.");
             emptyCart.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 30;");
@@ -103,7 +122,7 @@ public class ShoppingCartController {
             double subTotal = 0;
             double taxRate = 0.081; // Sales tax rate of Tempe.
 
-            for (Book book : order.getOrderContent()) {
+            for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
                 subTotal += book.getPrice(); //Adding all the prices of the books in the order together.
             }
 
@@ -129,8 +148,17 @@ public class ShoppingCartController {
 
             //Adding all the above info into our VBox on the right side of the window.
             pricingSummary.getChildren().addAll(title, preTax, orderTax, finalTotal, placeOrder);
-
         }
-        
+    }
+
+    public void removeBook(Book book) {
+        // Remove a book from the order
+        GlobalData.removeBookFromOrder(book);
+        // Update the cart display
+        cartSummary.getChildren().clear();
+        for (Book book1 : GlobalData.getCurrentOrder().getOrderContent()) {
+            addBook(book1);
+        }
+        calculatePrice();
     }
 }
