@@ -8,7 +8,8 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
     fx:controller="groupone.sundevilbookbank.controllers.ShoppingCartController"
-    prefWidth="1280" prefHeight="720" alignment="CENTER" spacing="10" style="-fx-background-color: #F8F2DC;">
+    prefWidth="1280" prefHeight="720" alignment="CENTER" spacing="10" style="-fx-background-color: #F8F2DC;"
+    stylesheets="@../stylesheets/CartPage.css" >
     <children>
 
         <HBox spacing="400"> 

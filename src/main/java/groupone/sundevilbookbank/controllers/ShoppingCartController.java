@@ -97,12 +97,13 @@ public class ShoppingCartController {
         // Add gridpane to HBox
         bookInfo.getChildren().add(details);
 
-        // 3rd element, buy button
-        Button buyButton = new Button("-");
-        buyButton.setOnAction(e -> removeBook(book));
-        bookInfo.getChildren().add(buyButton);
+        // 3rd element, remove button
+        Button removeButton = new Button("-");
+        removeButton.setOnAction(e -> removeBook(book));
+        removeButton.getStyleClass().add("remove-button");
+        bookInfo.getChildren().add(removeButton);
 
-        buyButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 20px;");
+        // removeButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 20px;");
         bookInfo.setHgrow(details, Priority.ALWAYS);
 
         // Add the HBox to the bookList VBox
@@ -143,9 +144,11 @@ public class ShoppingCartController {
             finalTotal.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 10;");
             
             Button placeOrder = new Button("Place Order");
+            placeOrder.setOnAction(e -> handlePlaceOrder());
+            placeOrder.getStyleClass().add("place-order-button");
             //placeOrder.maxWidth(70);
             //placeOrder.maxHeight(360);
-            placeOrder.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;");
+            // placeOrder.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;");
 
             //Adding all the above info into our VBox on the right side of the window.
             pricingSummary.getChildren().addAll(title, preTax, orderTax, finalTotal, placeOrder);
@@ -172,6 +175,18 @@ public class ShoppingCartController {
             cartSummary.getChildren().add(message);
         }
 
+        calculatePrice();
+    }
+
+    @FXML
+    public void handlePlaceOrder() {
+        // Place the order
+        GlobalData.getCurrentOrder().placeOrder();
+        // Update the cart display
+        cartSummary.getChildren().clear();
+        for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
+            addBook(book);
+        }
         calculatePrice();
     }
 }

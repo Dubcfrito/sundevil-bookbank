@@ -23,7 +23,7 @@ public class Account {
 
     //default constructor
     public Account() {
-        this.accountID = 0;
+        this.accountID = -1;
         this.username = "";
         this.password = "";
         this.email = "";

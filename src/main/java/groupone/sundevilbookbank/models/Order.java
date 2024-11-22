@@ -2,6 +2,8 @@ package groupone.sundevilbookbank.models;
 
 import java.util.ArrayList;
 
+import groupone.sundevilbookbank.services.Base;
+
 public class Order {
     private int orderNumber;
     private ArrayList<Book> orderContent;
@@ -31,6 +33,16 @@ public class Order {
         for (Book book : orderContent) {
             orderTotal += book.getPrice();
         }
+    }
+
+    public void placeOrder() {
+        this.orderStatus = "Placed";
+        // grab book ids from orderContent and put into arraylist<int>
+        ArrayList<Integer> bookIDs = new ArrayList<>();
+        for (Book book : orderContent) {
+            bookIDs.add(book.getBookID());
+        }
+        Base.insertOrder(this.buyerID, bookIDs, this.orderTotal, this.orderStatus);
     }
 
     //getters and setters

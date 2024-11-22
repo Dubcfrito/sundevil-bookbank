@@ -25,16 +25,19 @@ public class Base {
     private static String getDatabasePath() {
         try {
             // Fetches the path of the database file in resources
-            String path = Base.class.getResource("/groupone/database/base.db").toURI().getPath();
-            if (path == null) {
-                throw new IllegalArgumentException("Database file not found in classpath.");
-            }
+            // String path = Base.class.getResource("/groupone/database/base.db").toURI().getPath();
+            String path = "src/main/resources/groupone/database/base.db";
+            // if (path == null) {
+            //     throw new IllegalArgumentException("Database file not found in classpath.");
+            // }
             return path;
-        } catch (URISyntaxException e) {
+        // } catch (URISyntaxException e) {
+        //     throw new RuntimeException("Failed to locate database file", e);
+        // }
+        } catch (Exception e) {
             throw new RuntimeException("Failed to locate database file", e);
         }
     }
-
     public static Connection connect() {
         Connection conn = null;
         try {
