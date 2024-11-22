@@ -55,7 +55,7 @@ public class SignUpPageController {
             Base.insertAccount(username, password, email);
             // Implement logic to handle user registration
             showAlert("Success", "User registered successfully!");
-            MainApp.goToPage(3);
+            MainApp.goToPage(0);
         }
     }
 
