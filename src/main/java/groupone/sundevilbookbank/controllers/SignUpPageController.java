@@ -52,7 +52,7 @@ public class SignUpPageController {
         } else if (!password.equals(confirmPassword)) {
             showAlert("Error", "Passwords do not match.");
         } else {
-            Base.insertAccount(username, email, password);
+            Base.insertAccount(username, password, email);
             // Implement logic to handle user registration
             showAlert("Success", "User registered successfully!");
             MainApp.goToPage(3);
