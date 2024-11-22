@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.controllers;
 
 import groupone.sundevilbookbank.utils.PageLoader;
+import groupone.sundevilbookbank.MainApp;
 import groupone.sundevilbookbank.services.Base;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,7 +55,7 @@ public class SignUpPageController {
             Base.insertAccount(username, email, password);
             // Implement logic to handle user registration
             showAlert("Success", "User registered successfully!");
-            PageLoader.loadPage("LoginPage.fxml");
+            MainApp.goToPage(3);
         }
     }
 

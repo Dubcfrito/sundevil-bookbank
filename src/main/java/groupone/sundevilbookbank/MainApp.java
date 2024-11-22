@@ -4,6 +4,7 @@ import groupone.sundevilbookbank.controllers.AccountPageController;
 import groupone.sundevilbookbank.models.Account;
 import groupone.sundevilbookbank.models.Book;
 import groupone.sundevilbookbank.models.Order;
+import groupone.sundevilbookbank.utils.GlobalData;
 import groupone.sundevilbookbank.utils.PageLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -41,7 +42,13 @@ public class MainApp extends Application {
         if (pageIndex >= 0 && pageIndex < pages.size()) {
             currentPageIndex = pageIndex;
             PageLoader.loadPage(pages.get(currentPageIndex));
-
+            System.out.println(
+                "\n==========================================================================\n" +
+                "|| PAGE LOADED --- INDEX = " + pageIndex + " --- WITH DATA:\n" +
+                "|| ACCOUNT INFO  = ID:" + (GlobalData.getCurrentAccount() != null ? GlobalData.getCurrentAccount().getAccountID() : "null") + ", NAME: " + (GlobalData.getCurrentAccount() != null ? GlobalData.getCurrentAccount().getUsername() : "null") + "\n" +
+                "|| ORDER INFO    = ID:" + (GlobalData.getCurrentOrder() != null ? GlobalData.getCurrentOrder().getOrderNumber() : "null") + ", CONTENTSIZE: " + (GlobalData.getCurrentOrder() != null ? GlobalData.getCurrentOrder().getOrderContent().size() : "null") + " BOOKS\n" +
+                "==========================================================================\n"
+            );
         } else {
             System.out.println("Invalid page index" + pageIndex);
         }   

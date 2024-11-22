@@ -21,10 +21,6 @@ import javafx.scene.layout.Priority;
 
 public class BuyPageController {
     private Base base = new Base();
-
-    // Order object to store the current order
-    Order order;
-
     // Filter options
     String title = null;
     ArrayList<String> genreOptions = new ArrayList<>();
@@ -40,40 +36,28 @@ public class BuyPageController {
     // FXML elements linked by fx:id
     @FXML
     private TextField searchField; // The search bar
-
     @FXML
     private TextField authorTextField; // The author filter text field
-
     @FXML
     private TextField ISBNTextField; // The ISBN filter text field
-
     @FXML
     private VBox checkBoxContainer; // The VBox for the condition filter checkboxes
-
     @FXML
     private CheckBox condition1, condition2, condition3, condition4, condition5, condition6; // The checkboxes for condition filter
-
     @FXML
     private VBox genreButtonContainer; // The VBox for the genre filter buttons
-
     @FXML
     private VBox subjectButtonContainer; // The VBox for the subject filter buttons
-
     @FXML
     private VBox authorButtonContainer; // The VBox for the author filter buttons
-
     @FXML
     private VBox ISBNButtonContainer; // The VBox for the ISBN filter buttons
-
     @FXML
     private VBox conditionButtonContainer; // The VBox for the price filter buttons
-
     @FXML
     private VBox priceButtonContainer; // The VBox for the price filter buttons
-
     @FXML
     private CheckBox price1, price2, price3, price4, price5; // The checkboxes for price filter
-
     @FXML
     private VBox searchResults; // The VBox for displaying search results
 
@@ -85,11 +69,8 @@ public class BuyPageController {
 
         // Create a new order if one does not exist
         if (GlobalData.getCurrentOrder() == null) {
-            GlobalData.setCurrentOrder(new Order());
-    
+            GlobalData.setCurrentOrder(new Order(GlobalData.getCurrentAccount().getAccountID()));
         }
-        
-        order = GlobalData.getCurrentOrder();
 
         // use getallsubjects() to get all subjects from the database and add each subject as a checkbox to subjectButtonContainer
         ArrayList<String> subjects = base.getAllSubjects();
@@ -113,7 +94,6 @@ public class BuyPageController {
     // handle cart button
     @FXML
     private void handleCart() {
-        GlobalData.setCurrentOrder(order);
         MainApp.goToPage(4);
         System.out.println("Cart button clicked!");
     }
@@ -321,8 +301,9 @@ public class BuyPageController {
 
     public void addBookToCart(Book book) {
         // Add book to cart
-        order.addBook(book);
-        System.out.println("Book added to cart: " + book.getTitle());
+        GlobalData.addBookToOrder(book);
+        GlobalData.getCurrentOrder().updateOrderTotal();
+        System.out.println("Book added to cart: " + book.getTitle() + ", Total: " + GlobalData.getCurrentOrder().getOrderTotal());
     }
     // update the displayedBooks list with the books that match the filters
     public void updateDisplayedBooks() {

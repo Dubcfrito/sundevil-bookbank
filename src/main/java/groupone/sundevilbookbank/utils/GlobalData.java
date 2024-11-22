@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.utils;
 import groupone.sundevilbookbank.models.Account;
 import groupone.sundevilbookbank.models.Order;
+import groupone.sundevilbookbank.models.Book;
 
 public class GlobalData { 
     private static Account currentAccount;
@@ -16,5 +17,11 @@ public class GlobalData {
     }
     public static void setCurrentOrder(Order currentOrder) {
         GlobalData.currentOrder = currentOrder;
+    }
+    public static void addBookToOrder(Book book) {
+        currentOrder.addBook(book);
+    }
+    public static void removeBookFromOrder(Book book) {
+        currentOrder.removeBook(book);
     }
 }

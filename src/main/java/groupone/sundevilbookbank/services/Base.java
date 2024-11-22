@@ -189,25 +189,6 @@ public class Base {
         }
         return accountId;
     }
-    
-    public static void insertOrder(int bookID, String username, String price, String status) {
-        String insertSQL = "INSERT INTO orders (bookID, username, price, status) VALUES (?, ?, ?, ?)";
-    
-        try (Connection conn = connect();
-            PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-            // Set parameters for the PreparedStatement
-            pstmt.setInt(1, bookID);
-            pstmt.setString(2, username);
-            pstmt.setString(3, price);
-            pstmt.setString(4, status);
-    
-            // Execute the query
-            pstmt.executeUpdate();
-            System.out.println("Order inserted into base.db.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public static void insertBook(int accountID, String title, String author, String genre, String subject, String ISBN, String condition, String description, double price, String status, String images) {
         String insertSQL = "INSERT INTO books (accountID, title, author, genre, subject, ISBN, condition, description, price, status, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -317,7 +298,7 @@ public class Base {
                     rs.getInt("id"),
                     rs.getInt("accountID"),
                     books,
-                    rs.getString("price"),
+                    rs.getDouble("price"),
                     rs.getString("status")
                 );
             }
@@ -325,6 +306,53 @@ public class Base {
             System.out.println(e.getMessage());
         }
         return order;
+    }
+    
+    public static int insertOrder(int accountID, ArrayList<Integer> bookIDs, double total, String status) {
+        String insertSQL = "INSERT INTO orders (accountID, bookIDs, price, status) VALUES (?, ?, ?, ?)";
+        String getOrderIdSQL = "SELECT last_insert_rowid() AS id";
+        String getOrdersSQL = "SELECT orders FROM accounts WHERE id = ?";
+        String updateOrdersSQL = "UPDATE accounts SET orders = ? WHERE id = ?";
+        int orderID = -1;
+
+        try (Connection conn = connect();
+            // Prepare the insertion statement
+            PreparedStatement insertOrderStmt = conn.prepareStatement(insertSQL);
+            PreparedStatement getOrdersStmt = conn.prepareStatement(getOrdersSQL);
+            PreparedStatement updateOrdersStmt = conn.prepareStatement(updateOrdersSQL)) {
+            
+            // insert new order into orders table
+            insertOrderStmt.setInt(1, accountID);
+            insertOrderStmt.setString(2, new JSONArray(bookIDs).toString());
+            insertOrderStmt.setDouble(3, total);
+            insertOrderStmt.setString(4, status);
+            insertOrderStmt.executeUpdate();
+            System.out.println("Order inserted into base.db.");
+            
+            try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(getOrderIdSQL)) {
+                if (rs.next()) {
+                    orderID = rs.getInt("id");
+                    getOrdersStmt.setInt(1, accountID);
+                    ResultSet ordersResult = getOrdersStmt.executeQuery();
+                    String ordersJson = "[]";
+                    if (ordersResult.next() && ordersResult.getString("orders") != null) {
+                        ordersJson = ordersResult.getString("orders");
+                    }
+                    JSONArray orders = new JSONArray(ordersJson);
+                    orders.put(orderID);
+
+                    updateOrdersStmt.setString(1, orders.toString());
+                    updateOrdersStmt.setInt(2, accountID);
+                    updateOrdersStmt.executeUpdate();
+                    System.out.println("Orders number " + orderID + " updated in base.db for userID: " + accountID + ".");
+                }
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return orderID;
     }
     
     // get all subjects in sorted alphabetical list

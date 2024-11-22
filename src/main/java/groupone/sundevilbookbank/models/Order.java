@@ -7,10 +7,10 @@ public class Order {
     private ArrayList<Book> orderContent;
     private int buyerID;
     private String orderStatus;
-    private String orderTotal;
+    private double orderTotal;
 
     //constructors
-    public Order(int orderNumber, int buyerID, ArrayList<Book> orderContent, String orderTotal, String orderStatus) {
+    public Order(int orderNumber, int buyerID, ArrayList<Book> orderContent, double orderTotal, String orderStatus) {
         this.orderNumber = orderNumber;
         this.buyerID = buyerID;
         this.orderContent = orderContent;
@@ -18,13 +18,21 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Order() {
+    public Order(int buyerID) {
         this.orderNumber = -1;
         this.orderContent = new ArrayList<Book>();
-        this.buyerID = -1;
+        this.buyerID = buyerID;
         this.orderStatus = "";
-        this.orderTotal = "";
+        this.orderTotal = 0;
     }
+
+    public void updateOrderTotal() {
+        this.orderTotal = 0;
+        for (Book book : orderContent) {
+            orderTotal += book.getPrice();
+        }
+    }
+
     //getters and setters
     public int getOrderNumber() {
         return orderNumber;
@@ -50,10 +58,10 @@ public class Order {
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
-    public String getOrderTotal() {
+    public double getOrderTotal() {
         return orderTotal;
     }
-    public void setOrderTotal(String orderTotal) {
+    public void setOrderTotal(double orderTotal) {
         this.orderTotal = orderTotal;
     }
     public void addBook(Book book) {

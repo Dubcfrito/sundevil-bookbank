@@ -53,6 +53,7 @@ public class NavBarController {
 		//	e.printStackTrace();
 		//	System.err.println("Error loading accountPage");
 		//}
+        
 		MainApp.goToPage(3);
     }
 
