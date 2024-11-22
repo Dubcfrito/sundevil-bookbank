@@ -8,20 +8,21 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
     fx:controller="groupone.sundevilbookbank.controllers.ShoppingCartController"
-    prefWidth="1280" prefHeight="720" style="-fx-background-color: #F8F2DC;">
+    prefWidth="1280" prefHeight="720" alignment="CENTER" spacing="10" style="-fx-background-color: #F8F2DC;">
     <children>
-        <Label text="Shopping Cart" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-padding: 20;" />
-        <HBox prefWidth="1280" prefHeight="720" style="-fx-background-color: #F8F2DC;">
-            <children>
-                <!-- Title will be added here-->
 
+        <Label text="Shopping Cart" alignment="CENTER" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-padding: 20; -fx-font-family: 'Inter 28pt'" />
+
+        <HBox style="-fx-background-color: #F8F2DC; -fx-padding: 20;" spacing="10">
+            <children>
+ 
                 <!-- This is going to be the left side of the page that holds the books added to the Shopping Cart -->
-                <ScrollPane styleClass="center" fitToWidth="true" fitToHeight="true">
-                <VBox fx:id="cartSummary" />
+                <ScrollPane styleClass="center">
+                    <VBox fx:id="cartSummary" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" spacing="15" HBox.hgrow="ALWAYS"/>
                 </ScrollPane>
 
                 <!-- Right side of the page where the Pricing Summary will be -->
-                <VBox fx:id="pricingSummary" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS" />
+                <VBox fx:id="pricingSummary" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" HBox.hgrow="NEVER"/>
             </children>
         </HBox>
     </children>

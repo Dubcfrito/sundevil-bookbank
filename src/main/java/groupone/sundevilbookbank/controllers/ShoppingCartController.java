@@ -45,6 +45,7 @@ public class ShoppingCartController {
         // Create a HBox to hold the book information
         HBox bookInfo = new HBox();
         bookInfo.setSpacing(10);
+        bookInfo.setStyle("-fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2; -fx-padding: 5;");
 
         // 1st element, book image (uses image placeholder for now)
         Image image = new Image(getClass().getResource("/groupone/sundevilbookbank/images/logo.png").toExternalForm());
@@ -91,18 +92,18 @@ public class ShoppingCartController {
         col3.setPercentWidth(50);
 
         details.getColumnConstraints().addAll(col1, col2, col3);
+    
+
+        // Add gridpane to HBox
+        bookInfo.getChildren().add(details);
 
         // 3rd element, buy button
         Button buyButton = new Button("-");
         buyButton.setOnAction(e -> removeBook(book));
         bookInfo.getChildren().add(buyButton);
 
-        buyButton.getStyleClass().add("add-button");
-        bookInfo.getStyleClass().add("book-info");
+        buyButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 20px;");
         bookInfo.setHgrow(details, Priority.ALWAYS);
-
-        // Add gridpane to HBox
-        bookInfo.getChildren().add(details);
 
         // Add the HBox to the bookList VBox
         cartSummary.getChildren().add(bookInfo);
@@ -130,20 +131,20 @@ public class ShoppingCartController {
             double total = subTotal + tax; //Adding the tax to the subtotal to get our final price.
 
             Label title = new Label("Summary");
-            title.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 35; -fx-padding: 20;");
+            title.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 20;");
 
-            Label preTax = new Label("Subtotal: " + subTotal);
-            preTax.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 30; -fx-padding: 10;");
+            Label preTax = new Label("Subtotal: $" + String.format("%.2f", subTotal));
+            preTax.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 10;");
 
-            Label orderTax = new Label("Tax: " + tax);
-            orderTax.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 30; -fx-padding: 10;");
+            Label orderTax = new Label("Tax: $" + String.format("%.2f", tax));
+            orderTax.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 10;");
 
-            Label finalTotal = new Label("Total: " + total);
-            finalTotal.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 30; -fx-padding: 10;");
+            Label finalTotal = new Label("Total: $" + String.format("%.2f", total));
+            finalTotal.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 10;");
             
             Button placeOrder = new Button("Place Order");
-            placeOrder.maxWidth(360);
-            placeOrder.prefHeight(70);
+            //placeOrder.maxWidth(70);
+            //placeOrder.maxHeight(360);
             placeOrder.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 18; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;");
 
             //Adding all the above info into our VBox on the right side of the window.
