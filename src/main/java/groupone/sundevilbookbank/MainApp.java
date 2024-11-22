@@ -19,15 +19,16 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Add pages to the list
-        pages.add("LoginPage.fxml");
-        pages.add("SignUpPage.fxml");
-        pages.add("ForgotPasswordPage.fxml");
-        pages.add("LandingPage.fxml");
-        pages.add("BuyPage.fxml");
-        pages.add("AccountPage.fxml");
-        pages.add("ReviewOrder.fxml");
-        pages.add("PurchaseConfirmation.fxml");
+        // Add pages to the list with index          \/
+        pages.add("LoginPage.fxml");            // 0
+        pages.add("SignUpPage.fxml");           // 1
+        pages.add("ForgotPasswordPage.fxml");   // 2
+        pages.add("LandingPage.fxml");          // 3
+        pages.add("BuyPage.fxml");              // 4
+        pages.add("AccountPage.fxml");          // 5
+        pages.add("ReviewOrder.fxml");          // 6
+        pages.add("PurchaseConfirmation.fxml"); // 7
+        pages.add("ShoppingCart.fxml");         // 8
         
 
         // Initialize PageLoader

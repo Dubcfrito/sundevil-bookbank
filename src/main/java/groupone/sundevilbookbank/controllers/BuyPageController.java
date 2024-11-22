@@ -316,4 +316,8 @@ public class BuyPageController {
         }
         System.out.println("Books found: " + displayedBooks.size());
     }
+
+    public void handleCartButton() {
+        MainApp.goToPage(4);
+    }
 }
