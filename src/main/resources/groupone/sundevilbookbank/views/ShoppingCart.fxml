@@ -18,11 +18,11 @@
  
                 <!-- This is going to be the left side of the page that holds the books added to the Shopping Cart -->
                 <ScrollPane styleClass="center">
-                    <VBox fx:id="cartSummary" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" spacing="15" HBox.hgrow="ALWAYS"/>
+                    <VBox fx:id="cartSummary" prefWidth="960" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" spacing="15" HBox.hgrow="ALWAYS"/>
                 </ScrollPane>
 
                 <!-- Right side of the page where the Pricing Summary will be -->
-                <VBox fx:id="pricingSummary" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" HBox.hgrow="NEVER"/>
+                <VBox fx:id="pricingSummary" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20; -fx-border-color: #568196; -fx-border-style: solid; -fx-border-width: 2;" HBox.hgrow="ALWAYS"/>
             </children>
         </HBox>
     </children>
