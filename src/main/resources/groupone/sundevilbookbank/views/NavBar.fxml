@@ -16,7 +16,7 @@
 
     <StackPane>
         <ImageView fx:id="miniLogoView" fitWidth="50" preserveRatio="true" />
-        <Button fx:id="logoButton" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" />
+        <Button fx:id="logoButton" style="-fx-background-color: -transparent; -fx-border-color: transparent; -fx-padding: 0;" />
     </StackPane>
 
     <Region HBox.hgrow="ALWAYS" />
@@ -30,7 +30,7 @@
     <!-- Account Button with Margins -->
     <StackPane>
         <ImageView fx:id="accountButtonView" fitWidth="30" preserveRatio="true" />
-        <Button fx:id="accountButton" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
+        <Button fx:id="accountButton" style="-fx-background-color: -transparent; -fx-border-color: transparent;" />
     </StackPane>
 
     <Region prefWidth="10" />
