@@ -153,13 +153,25 @@ public class ShoppingCartController {
     }
 
     public void removeBook(Book book) {
+        //Keep track of how many books are left in the cart.
+        int count = 0;
+
         // Remove a book from the order
         GlobalData.removeBookFromOrder(book);
         // Update the cart display
         cartSummary.getChildren().clear();
         for (Book book1 : GlobalData.getCurrentOrder().getOrderContent()) {
             addBook(book1);
+            count++;
         }
+
+        //If there are no more books left in the cart, it will display a message saying that the cart is empty.
+        if(count == 0) {
+            Label message = new Label("Your shopping cart is empty!");
+            message.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 40; -fx-padding: 200 20 20 185;");
+            cartSummary.getChildren().add(message);
+        }
+
         calculatePrice();
     }
 }
