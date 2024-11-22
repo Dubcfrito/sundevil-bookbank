@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="groupone.sundevilbookbank.controllers.ShoppingCartController"
+      prefWidth="1280" prefHeight="720" style="-fx-background-color: #8a0d37;">
+
+    <children> 
+        <!-- Title will be added here-->
+
+        <!-- This is going to be the left side of the page that holds the books added to the Shopping Cart -->
+        <ScrollPane styleClass="center" fitToWidth="true" fitToHeight="true">
+            <VBox fx:id="searchResults" />
+        </ScrollPane>
+
+        <!-- Right side of the page where the Pricing Summary will be -->
+        <VBox fx:id="pricingSummary" alignment="CENTER" spacing="20" style="-fx-background-color: #8a0d37; -fx-padding: 20;" HBox.hgrow="ALWAYS" />     
+    
+    </children>
+</HBox>
