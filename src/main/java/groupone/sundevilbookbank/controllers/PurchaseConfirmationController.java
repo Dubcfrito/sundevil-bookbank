@@ -12,8 +12,8 @@ public class PurchaseConfirmationController {
     @FXML
     private Button buyAgain;
 
-    @FXML
-    private Button account;
+    // @FXML
+    // private Button account;
 
     @FXML
     private Label secondary;
@@ -24,7 +24,7 @@ public class PurchaseConfirmationController {
 
         //Set fonts for the buttons
         buyAgain.setFont(customFont);
-        account.setFont(customFont);
+        // account.setFont(customFont);
 
         secondary.setText("" + GlobalData.getCurrentOrder().getOrderNumber());
     }

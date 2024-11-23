@@ -202,8 +202,7 @@ public class ShoppingCartController {
             GlobalData.getCurrentOrder().setOrderTotal(total);
             GlobalData.getCurrentOrder().setOrderNumber(Base.insertOrder(GlobalData.getCurrentAccount().getAccountID(), GlobalData.getCurrentOrder()));
             System.out.println("Order placed with number: " + GlobalData.getCurrentOrder().getOrderNumber());
-            
-            // Update the cart display
+            // Go to the PurchaseConfirmation page
             MainApp.goToPage(7);
         }
     }
