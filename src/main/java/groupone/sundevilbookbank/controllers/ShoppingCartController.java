@@ -1,7 +1,9 @@
 package groupone.sundevilbookbank.controllers;
 
+import groupone.sundevilbookbank.MainApp;
 import groupone.sundevilbookbank.models.Book;
 import groupone.sundevilbookbank.models.Order;
+import groupone.sundevilbookbank.services.Base;
 import groupone.sundevilbookbank.utils.GlobalData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +16,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 
 public class ShoppingCartController {
+    final static double taxRate = 0.081; // Sales tax rate of Tempe.
+    double subTotal = 0; // The subtotal of the order.
+    double total = 0; // The total of the order.
+    double tax = 0; // The tax placed onto the order.
+
     @FXML
     private VBox cartSummary; // The VBox for displaying cart
 
@@ -23,8 +30,16 @@ public class ShoppingCartController {
     // This method is automatically called after the FXML elements are loaded
     @FXML
     public void initialize() {
-        for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
-            addBook(book);
+        cartSummary.getChildren().clear();
+        if (GlobalData.getCurrentOrder().getOrderContent().size() == 0) {
+            // Print some message that says the shopping cart is empty.
+            Label message = new Label("Your shopping cart is empty!");
+            message.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 40; -fx-padding: 200 20 20 185;");
+            cartSummary.getChildren().add(message);
+        } else {
+            for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
+                addBook(book);
+            }
         }
         calculatePrice();
     }
@@ -121,15 +136,13 @@ public class ShoppingCartController {
         }
 
         else {
-            double subTotal = 0;
-            double taxRate = 0.081; // Sales tax rate of Tempe.
+            
+            GlobalData.getCurrentOrder().updateOrderTotal(); //Updating the total of the order.
 
-            for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
-                subTotal += book.getPrice(); //Adding all the prices of the books in the order together.
-            }
+            subTotal = GlobalData.getCurrentOrder().getOrderTotal(); //Getting the total of the order.
 
-            double tax = subTotal * taxRate; //Calculating the amount of tax placed onto the order.
-            double total = subTotal + tax; //Adding the tax to the subtotal to get our final price.
+            tax = subTotal * taxRate; //Calculating the amount of tax placed onto the order.
+            total = subTotal + tax; //Adding the tax to the subtotal to get our final price.
 
             Label title = new Label("Summary");
             title.setStyle("-fx-font-family: 'Inter 28pt'; -fx-font-size: 25; -fx-padding: 20;");
@@ -180,13 +193,24 @@ public class ShoppingCartController {
 
     @FXML
     public void handlePlaceOrder() {
-        // Place the order
-        GlobalData.getCurrentOrder().placeOrder();
-        // Update the cart display
-        cartSummary.getChildren().clear();
-        for (Book book : GlobalData.getCurrentOrder().getOrderContent()) {
-            addBook(book);
+        if (GlobalData.getCurrentOrder().getOrderContent().size() == 0) {
+            // do nothing if the cart is empty
+        } else {
+            // Place the order
+            System.out.println("Total: " + total);
+            GlobalData.getCurrentOrder().setOrderStatus("Placed");
+            GlobalData.getCurrentOrder().setOrderTotal(total);
+            GlobalData.getCurrentOrder().setOrderNumber(Base.insertOrder(GlobalData.getCurrentAccount().getAccountID(), GlobalData.getCurrentOrder()));
+            System.out.println("Order placed with number: " + GlobalData.getCurrentOrder().getOrderNumber());
+            
+            // Update the cart display
+            MainApp.goToPage(7);
         }
-        calculatePrice();
+    }
+
+    @FXML
+    public void handleBackButton() {
+        // Go back to the BuyPage
+        MainApp.goToPage(4);
     }
 }

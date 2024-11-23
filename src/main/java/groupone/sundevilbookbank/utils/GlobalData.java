@@ -6,6 +6,7 @@ import groupone.sundevilbookbank.models.Book;
 public class GlobalData { 
     private static Account currentAccount;
     private static Order currentOrder;
+    
     public static Account getCurrentAccount() {
         return currentAccount;
     }

@@ -35,16 +35,6 @@ public class Order {
         }
     }
 
-    public void placeOrder() {
-        this.orderStatus = "Placed";
-        // grab book ids from orderContent and put into arraylist<int>
-        ArrayList<Integer> bookIDs = new ArrayList<>();
-        for (Book book : orderContent) {
-            bookIDs.add(book.getBookID());
-        }
-        Base.insertOrder(this.buyerID, bookIDs, this.orderTotal, this.orderStatus);
-    }
-
     //getters and setters
     public int getOrderNumber() {
         return orderNumber;

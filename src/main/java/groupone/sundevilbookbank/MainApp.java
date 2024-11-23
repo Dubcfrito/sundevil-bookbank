@@ -16,19 +16,10 @@ public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
 
-    private static int currentPageIndex = 8;
+    private static int currentPageIndex = 0;
 
     @Override
     public void start(Stage primaryStage) {
-        // Test Account
-        GlobalData.setCurrentAccount(Base.getAccount("Jack", "Klebonis"));
-        GlobalData.setCurrentOrder(new Order(Base.getAccountID("Jack", "Password")));
-        // add books to test order
-        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
-        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
-        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
-        GlobalData.addBookToOrder(new Book(-1, -1, "Book Title", "Jack", "Book", "Book", "1234", "Like New", "Book", 22, "Status", "Images"));
-
         // Add pages to the list with index          \/
         pages.add("LoginPage.fxml");            // 0
         pages.add("SignUpPage.fxml");           // 1
@@ -66,6 +57,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+        Base.createTables();
         launch(args);
     }
 }

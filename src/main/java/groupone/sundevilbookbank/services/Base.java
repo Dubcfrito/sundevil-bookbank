@@ -60,9 +60,7 @@ public class Base {
             + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "username TEXT NOT NULL, "
             + "password TEXT NOT NULL, "
-            + "email TEXT NOT NULL, "
-            + "listings TEXT DEFAULT '[]', "
-            + "orders TEXT DEFAULT '[]');";
+            + "email TEXT NOT NULL);";
 
         String ordersTable = 
             "CREATE TABLE IF NOT EXISTS orders ("
@@ -86,11 +84,23 @@ public class Base {
             + "price REAL NOT NULL, "
             + "status TEXT NOT NULL, "
             + "images TEXT);";
+
+        String buyerTable = 
+            "CREATE TABLE IF NOT EXISTS buyers ("
+                + "accountID INTEGER NOT NULL, "
+                + "orders TEXT DEFAULT '[]');";
+        
+        String sellerTable = 
+            "CREATE TABLE IF NOT EXISTS sellers ("
+                + "accountID INTEGER NOT NULL, "
+                + "listings TEXT DEFAULT '[]');";
         
         try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
             stmt.execute(accountsTable);
             stmt.execute(ordersTable);
             stmt.execute(booksTable);
+            stmt.execute(buyerTable);
+            stmt.execute(sellerTable);
 
             System.out.println("tables created in base.db.");
         } catch (SQLException e) {
@@ -132,28 +142,11 @@ public class Base {
             // Execute the query
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                //json array of book ids into arraylist of books
-                JSONArray listings = new JSONArray(rs.getString("listings"));
-                ArrayList<Book> books = new ArrayList<Book>();
-                for (int i = 0; i < listings.length(); i++) {
-                    books.add(getBook(listings.getInt(i)));
-                }
-
-                //json array of order ids into arraylist of orders
-                JSONArray orders = new JSONArray(rs.getString("orders"));
-                ArrayList<Order> orderList = new ArrayList<Order>();
-                for (int i = 0; i < orders.length(); i++) {
-                    orderList.add(getOrder(orders.getInt(i)));
-                }
-
                 account = new Account(
                     rs.getInt("id"),
                     rs.getString("username"),
                     rs.getString("password"),
-                    rs.getString("email"),
-                    books,
-                    orderList
-
+                    rs.getString("email")
                 );
             }
         } catch (SQLException e) {
@@ -163,29 +156,39 @@ public class Base {
     }
 
     public static int insertAccount(String username, String password, String email) {
-        String insertSQL = "INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)";
+        String insertIntoAccounts = "INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)";
+        String insertIntoBuyers = "INSERT INTO buyers (accountID) VALUES (?)";
+        String insertIntoSellers = "INSERT INTO sellers (accountID) VALUES (?)";
+
         int accountId = -1;
     
         try (Connection conn = connect();
-            PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+            PreparedStatement pstmt1 = conn.prepareStatement(insertIntoAccounts);
+            PreparedStatement pstmt2 = conn.prepareStatement(insertIntoBuyers);
+            PreparedStatement pstmt3 = conn.prepareStatement(insertIntoSellers);
+            ) {
             // Set parameters for the PreparedStatement
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setString(3, email);
+            pstmt1.setString(1, username);
+            pstmt1.setString(2, password);
+            pstmt1.setString(3, email);
     
             // Execute the query
-            int affectedRows = pstmt.executeUpdate();
+            int affectedRows = pstmt1.executeUpdate();
             // Check if the insert was successful
             if (affectedRows > 0) {
                 // Retrieve the generated account ID
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                try (ResultSet generatedKeys = pstmt1.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         accountId = generatedKeys.getInt(1);
                     }
                 }
             }
+            pstmt2.setInt(1, accountId);
+            pstmt2.executeUpdate();
+            pstmt3.setInt(1, accountId);
+            pstmt3.executeUpdate();
 
-            System.out.println("Account inserted into base.db with id: " + accountId + ".");
+            System.out.println("Account inserted into base.db with ID: " + accountId + ".");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -195,9 +198,8 @@ public class Base {
 
     public static void insertBook(int accountID, String title, String author, String genre, String subject, String ISBN, String condition, String description, double price, String status, String images) {
         String insertSQL = "INSERT INTO books (accountID, title, author, genre, subject, ISBN, condition, description, price, status, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String getBookIdSQL = "SELECT last_insert_rowid() AS id";
-        String getListingsSQL = "SELECT listings FROM accounts WHERE id = ?";
-        String updateListingsSQL = "UPDATE accounts SET listings = ? WHERE id = ?";
+        String getListingsSQL = "SELECT listings FROM sellers WHERE accountID = ?";
+        String updateListingsSQL = "UPDATE sellers SET listings = ? WHERE accountID = ?";
 
 
         try (Connection conn = connect();
@@ -218,29 +220,27 @@ public class Base {
             insertBookStmt.setDouble(9, price);
             insertBookStmt.setString(10, status);
             insertBookStmt.setString(11, images);
-            insertBookStmt.executeUpdate();
-            System.out.println("Book inserted into base.db.");
-            
-            try (Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(getBookIdSQL)) {
-                if (rs.next()) {
-                    int bookid = rs.getInt("id");
-                    getListingsStmt.setInt(1, accountID);
-                    ResultSet listingsResult = getListingsStmt.executeQuery();
-                    String listingsJson = "[]";
-                    if (listingsResult.next() && listingsResult.getString("listings") != null) {
-                        listingsJson = listingsResult.getString("listings");
+            int affectedRows = insertBookStmt.executeUpdate();
+            int BookID = -1;
+            // Check if the insert was successful
+            if (affectedRows > 0) {
+                // Retrieve the generated account ID
+                try (ResultSet generatedKeys = insertBookStmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        BookID = generatedKeys.getInt(1);
                     }
-                    JSONArray listings = new JSONArray(listingsJson);
-                    listings.put(bookid);
-
-                    updateListingsStmt.setString(1, listings.toString());
-                    updateListingsStmt.setInt(2, accountID);
-                    updateListingsStmt.executeUpdate();
-                    System.out.println("Listings updated in base.db for userID: " + accountID + ".");
                 }
             }
-            
+            System.out.println("Book inserted into base.db.");
+            getListingsStmt.setInt(1, accountID);
+            ResultSet rs = getListingsStmt.executeQuery();
+            if (rs.next()) {
+                JSONArray listings = new JSONArray(rs.getString("listings"));
+                listings.put(BookID);
+                updateListingsStmt.setString(1, listings.toString());
+                updateListingsStmt.setInt(2, accountID);
+                updateListingsStmt.executeUpdate();
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -311,47 +311,54 @@ public class Base {
         return order;
     }
     
-    public static int insertOrder(int accountID, ArrayList<Integer> bookIDs, double total, String status) {
+    // inserts order, returns orderID
+    public static int insertOrder(int accountID, Order order) {
         String insertSQL = "INSERT INTO orders (accountID, bookIDs, price, status) VALUES (?, ?, ?, ?)";
-        String getOrderIdSQL = "SELECT last_insert_rowid() AS id";
-        String getOrdersSQL = "SELECT orders FROM accounts WHERE id = ?";
-        String updateOrdersSQL = "UPDATE accounts SET orders = ? WHERE id = ?";
+        String getBuyersOrders = "SELECT orders FROM buyers WHERE accountID = ?";
+        String updateOrders = "UPDATE buyers SET orders = ? WHERE accountID = ?";
         int orderID = -1;
 
+        // order.getBookIDs() into json array
+        JSONArray bookIDs = new JSONArray();
+        for (Book book : order.getOrderContent()) {
+            bookIDs.put(book.getBookID());
+        } 
+    
         try (Connection conn = connect();
-            // Prepare the insertion statement
-            PreparedStatement insertOrderStmt = conn.prepareStatement(insertSQL);
-            PreparedStatement getOrdersStmt = conn.prepareStatement(getOrdersSQL);
-            PreparedStatement updateOrdersStmt = conn.prepareStatement(updateOrdersSQL)) {
+            PreparedStatement pstmt1 = conn.prepareStatement(insertSQL);
+            PreparedStatement pstmt2 = conn.prepareStatement(getBuyersOrders);
+            PreparedStatement pstmt3 = conn.prepareStatement(updateOrders);
             
-            // insert new order into orders table
-            insertOrderStmt.setInt(1, accountID);
-            insertOrderStmt.setString(2, new JSONArray(bookIDs).toString());
-            insertOrderStmt.setDouble(3, total);
-            insertOrderStmt.setString(4, status);
-            insertOrderStmt.executeUpdate();
-            System.out.println("Order inserted into base.db.");
-            
-            try (Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(getOrderIdSQL)) {
-                if (rs.next()) {
-                    orderID = rs.getInt("id");
-                    getOrdersStmt.setInt(1, accountID);
-                    ResultSet ordersResult = getOrdersStmt.executeQuery();
-                    String ordersJson = "[]";
-                    if (ordersResult.next() && ordersResult.getString("orders") != null) {
-                        ordersJson = ordersResult.getString("orders");
+            ) {
+            // Set parameters for the PreparedStatement
+            pstmt1.setInt(1, accountID);
+            pstmt1.setString(2, bookIDs.toString());
+            pstmt1.setDouble(3, order.getOrderTotal());
+            pstmt1.setString(4, order.getOrderStatus());
+    
+            // Execute the query
+            int affectedRows = pstmt1.executeUpdate();
+            // Check if the insert was successful
+            if (affectedRows > 0) {
+                // Retrieve the generated order ID
+                try (ResultSet generatedKeys = pstmt1.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        orderID = generatedKeys.getInt(1);
                     }
-                    JSONArray orders = new JSONArray(ordersJson);
-                    orders.put(orderID);
-
-                    updateOrdersStmt.setString(1, orders.toString());
-                    updateOrdersStmt.setInt(2, accountID);
-                    updateOrdersStmt.executeUpdate();
-                    System.out.println("Orders number " + orderID + " updated in base.db for userID: " + accountID + ".");
                 }
             }
-            
+
+            pstmt2.setInt(1, accountID);
+            ResultSet rs = pstmt2.executeQuery();
+            if (rs.next()) {
+                JSONArray orders = new JSONArray(rs.getString("orders"));
+                orders.put(orderID);
+                pstmt3.setString(1, orders.toString());
+                pstmt3.setInt(2, accountID);
+                pstmt3.executeUpdate();
+            }
+            System.out.println("Order inserted into base.db with ID: " + orderID + ".");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -360,7 +367,7 @@ public class Base {
     
     // get all subjects in sorted alphabetical list
     public static ArrayList<String> getAllSubjects() {
-        String selectSQL = "SELECT DISTINCT subject FROM books ORDER BY subject ASC";
+        String selectSQL = "SELECT DISTINCT subject FROM books WHERE status = 'Listed' ORDER BY subject ASC";
         ArrayList<String> subjects = new ArrayList<String>();
     
         try (Connection conn = connect();
@@ -377,7 +384,7 @@ public class Base {
 
     // get all genres in sorted alphabetical list
     public static ArrayList<String> getAllGenres() {
-        String selectSQL = "SELECT DISTINCT genre FROM books ORDER BY genre ASC";
+        String selectSQL = "SELECT DISTINCT genre FROM books WHERE status = 'Listed' ORDER BY genre ASC";
         ArrayList<String> genres = new ArrayList<String>();
     
         try (Connection conn = connect();
@@ -394,7 +401,7 @@ public class Base {
 
     // get all books in the database, return as a list of Book objects
     public static ArrayList<Book> getAllBooks() {
-        String selectSQL = "SELECT * FROM books";
+        String selectSQL = "SELECT * FROM books WHERE status = 'Listed'";
         ArrayList<Book> books = new ArrayList<Book>();
     
         try (Connection conn = connect();
@@ -434,7 +441,7 @@ public class Base {
         ArrayList<String> isbns) {
 
         ArrayList<Book> books = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE WHERE status = 'Listed'");
 
         // Append filters dynamically
         if (title != null && !title.isEmpty()) sql.append(" AND title LIKE ?");

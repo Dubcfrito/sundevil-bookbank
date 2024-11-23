@@ -14,7 +14,7 @@
 
         <HBox spacing="400"> 
         <!-- THIS BUTTON DOES NOT YET WORK! IT NEEDS TO GO BACK TO THE BUYPAGE ONCE CLICKED! -->
-            <Button text="←" style="-fx-font-size: 40; -fx-background-color: transparent; -fx-border-color: transparent; "/>
+            <Button text="←" onAction="#handleBackButton" style="-fx-font-size: 40; -fx-background-color: transparent; -fx-border-color: transparent; "/>
             <Label text="Shopping Cart" alignment="CENTER" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-padding: 20; -fx-font-family: 'Inter 28pt'" />
         </HBox>
         

@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.controllers;
 
 import groupone.sundevilbookbank.MainApp;
+import groupone.sundevilbookbank.services.Base;
 import groupone.sundevilbookbank.utils.GlobalData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

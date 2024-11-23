@@ -7,8 +7,8 @@ public class Admin extends Account{
     private String adminLevel;
     private String log; //log of admin actions but will be stored in a database
 
-    public Admin(int accountID, String username, String password, String email, ArrayList<Book> listings, ArrayList<Order> orders, int adminID, String adminLevel) {
-        super(accountID, username, password, email, listings, orders);
+    public Admin(int accountID, String username, String password, String email, int adminID, String adminLevel) {
+        super(accountID, username, password, email);
         this.adminID = adminID;
         this.adminLevel = adminLevel;
     }

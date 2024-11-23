@@ -14,8 +14,8 @@
       prefWidth="1280" prefHeight="720">
 
 
-        <!-- Purchase Confirmation Page without the Navigation Bar -->
-        <VBox fx:id="purchaseConfirmationPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+       <!-- Purchase Confirmation Page without the Navigation Bar -->
+       <VBox fx:id="purchaseConfirmationPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS">
 
             <children>
                 <Label fx:id="title" text="Order Confirmed!" textFill="#000000" 
@@ -23,23 +23,18 @@
                        alignment="CENTER" maxWidth="Infinity"/>
 
                 <HBox alignment="CENTER">
-                       <Label fx:id="secondary" text="Thank You for purchasing " textFill="000000"
-                       style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 50;" 
-                       alignment="CENTER" maxWidth="Infinity"/>
-
-                        <!--Should be a variable that holds the title of the book(s)-->
-                       <Label fx:id="secondary" text="[title of book]" textFill="#568196"
+                       <Label fx:id="secondary" text="Thank You for purchasing! " textFill="000000"
                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 50;" 
                        alignment="CENTER" maxWidth="Infinity"/>
                 </HBox>
                 
                 <HBox alignment="CENTER">
-                       <Label fx:id="secondary" text="Order #" textFill="000000"
+                       <Label text="Order #" textFill="000000"
                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 40;" 
                        alignment="CENTER" maxWidth="Infinity"/>
 
                         <!--Should be a variable that holds the order number-->
-                       <Label fx:id="secondary" text="000000000" textFill="#568196"
+                       <Label fx:id="secondary" text="-1" textFill="#568196"
                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 40;" 
                        alignment="CENTER" maxWidth="Infinity"/>
                 </HBox>

@@ -62,30 +62,31 @@ public class AccountPageController {
     public void setCurrentAccount(Account account) {
         this.currentAccount = account;
         if (transactionList != null) {
-            loadTransactions();
+            // loadTransactions();
         }
     }
 
-    private void loadTransactions() {
-        transactionList.getChildren().clear(); // Clear any previous transactions
-        if (currentAccount != null) {
-            for (Order order : currentAccount.getOrders()) {
-                for (Book book : order.getOrderContent()) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/groupone/sundevilbookbank/views/TransactionItem.fxml"));
-                        Node transactionNode = loader.load();
+    // REFACTOR IS NECCESARY DUE TO SEPERATION OF BUYER AND SELLER
+    // private void loadTransactions() {
+    //     transactionList.getChildren().clear(); // Clear any previous transactions
+    //     if (currentAccount != null) {
+    //         for (Order order : currentAccount.getOrders()) {
+    //             for (Book book : order.getOrderContent()) {
+    //                 try {
+    //                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/groupone/sundevilbookbank/views/TransactionItem.fxml"));
+    //                     Node transactionNode = loader.load();
 
-                        TransactionItemController controller = loader.getController();
-                        controller.setTransactionDetails(book, order.getOrderStatus());
+    //                     TransactionItemController controller = loader.getController();
+    //                     controller.setTransactionDetails(book, order.getOrderStatus());
 
-                        transactionList.getChildren().add(transactionNode);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else {
-            System.out.println("No account data found.");
-        }
-    }
+    //                     transactionList.getChildren().add(transactionNode);
+    //                 } catch (IOException e) {
+    //                     e.printStackTrace();
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         System.out.println("No account data found.");
+    //     }
+    // }
 }
