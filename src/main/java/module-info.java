@@ -4,7 +4,10 @@ module groupone.sundevilbookbank {
     requires java.sql;
     requires org.json;
 
-    // Export the main package where MainApp is located
+    // Export the main class to JavaFX, allowing reflective access for FXML loading
+    exports groupone.sundevilbookbank.services;
+    exports groupone.sundevilbookbank.controllers;
+    exports groupone.sundevilbookbank.models;
     exports groupone.sundevilbookbank;
 
     // Open the controllers package to JavaFX, allowing reflective access for FXML loading

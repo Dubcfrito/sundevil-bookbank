@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+    fx:controller="groupone.sundevilbookbank.controllers.BuyPageController"
+    prefWidth="1280" prefHeight="720"
+    stylesheets="@../stylesheets/BuyPage.css">
+    <fx:include source="NavBar.fxml"/>
+
+    <BorderPane prefWidth="1280" prefHeight="720">
+        <!-- Left side for dropdown selectors -->
+        <left>
+            <VBox styleClass="parameters" spacing="15">
+                <Accordion xmlns:fx="http://javafx.com/fxml" fx:id="accordion">
+                    <panes>
+                        <TitledPane text="Genre">
+                            <VBox fx:id="genreButtonContainer" spacing="10" />
+                        </TitledPane>
+                        <TitledPane text="Subject">
+                            <VBox fx:id="subjectButtonContainer" spacing="10" />
+                        </TitledPane>
+                        <TitledPane text="Author">
+                            <VBox spacing="10">
+                                <HBox spacing="10">
+                                    <TextField fx:id="authorTextField" promptText="Author Name" HBox.hgrow="ALWAYS"/>
+                                    <Button text="🔍" onAction="#handleAuthorSearch"/>
+                                </HBox>
+                                <VBox fx:id="authorButtonContainer" spacing="10" />
+                            </VBox>
+                        </TitledPane>
+                        <TitledPane text="ISBN">
+                            <VBox spacing="10">
+                                <HBox spacing="10">
+                                    <TextField fx:id="ISBNTextField" promptText="ISBN Number" HBox.hgrow="ALWAYS"/>
+                                    <Button text="🔍" onAction="#handleISBNSearch"/>
+                                </HBox>
+                                <VBox fx:id="ISBNButtonContainer" spacing="10" />
+                            </VBox>
+                        </TitledPane>
+                        <TitledPane text="Condition">
+                            <VBox fx:id="conditionButtonContainer" spacing="10">
+                                <CheckBox fx:id="condition1" text="Like New" onAction="#handleConditionFilter"/>
+                                <CheckBox fx:id="condition2" text="Very Good" onAction="#handleConditionFilter"/>
+                                <CheckBox fx:id="condition3" text="Acceptable" onAction="#handleConditionFilter"/>
+                                <CheckBox fx:id="condition4" text="Poor" onAction="#handleConditionFilter"/>
+                                <CheckBox fx:id="condition5" text="Bad" onAction="#handleConditionFilter"/>
+                                <CheckBox fx:id="condition6" text="Unspecified" onAction="#handleConditionFilter"/>
+                            </VBox>
+                        </TitledPane>
+                        <TitledPane text="Price">
+                            <VBox fx:id="priceButtonContainer" spacing="10">
+                                <CheckBox fx:id="price1" text="0 - 25" onAction="#handlePriceFilter"/>
+                                <CheckBox fx:id="price2" text="25 - 50" onAction="#handlePriceFilter"/>
+                                <CheckBox fx:id="price3" text="50 - 75" onAction="#handlePriceFilter"/>
+                                <CheckBox fx:id="price4" text="75 - 100" onAction="#handlePriceFilter"/>
+                                <CheckBox fx:id="price5" text=">100" onAction="#handlePriceFilter"/>
+                            </VBox>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </VBox>
+        </left>
+
+        <!-- Center for main content (book listings, etc.) -->
+        <center>
+            <!-- Place the main book listings layout here using a scrollpane-->
+            <ScrollPane styleClass="center" fitToWidth="true" fitToHeight="true">
+                <VBox fx:id="searchResults" />
+            </ScrollPane>
+        </center>
+
+        <top>
+            <VBox>
+                <!-- <fx:include source="NavBar.fxml" /> -->
+                <HBox styleClass="searchBar">
+                    <BorderPane.margin>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </BorderPane.margin>
+                    <Button text="🔍" onAction="#handleSearch" />
+                    <TextField styleClass="searchField" fx:id="searchField" promptText="Search Book Name" HBox.hgrow="ALWAYS" />
+                    <Button text="🛒" onAction='#handleCartButton' />
+                </HBox>
+            </VBox>
+        </top>
+    </BorderPane>
+</VBox>

@@ -2,6 +2,7 @@ package groupone.sundevilbookbank.models;
 
 public class Book {
     private int bookID;
+    private int listerAccountID;
     private String title;
     private String author;
     private String genre;
@@ -9,12 +10,13 @@ public class Book {
     private String ISBN;
     private String condition;
     private String description;
-    private String price;
+    private double price;
     private String status;
     private String images; // tbd how to store images
     
-    public Book(int bookID, String title, String author, String genre, String subject, String ISBN, String condition, String description, String price, String status, String images) {
+    public Book(int bookID, int listerAccountID, String title, String author, String genre, String subject, String ISBN, String condition, String description, double price, String status, String images) {
         this.bookID = bookID;
+        this.listerAccountID = listerAccountID;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -33,6 +35,12 @@ public class Book {
     }
     public void setBookID(int bookID) {
         this.bookID = bookID;
+    }
+    public int getListerAccountID() {
+        return listerAccountID;
+    }
+    public void setListerAccountID(int listerAccountID) {
+        this.listerAccountID = listerAccountID;
     }
     public String getTitle() {
         return title;
@@ -76,10 +84,10 @@ public class Book {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
     public String getStatus() {

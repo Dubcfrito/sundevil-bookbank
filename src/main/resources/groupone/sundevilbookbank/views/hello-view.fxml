@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="1280" prefHeight="720" fx:controller="groupone.sundevilbookbank.controllers.SellerConformationController" style="-fx-background-color: #F8F2DC;">
+    <!-- Center message and buttons -->
+    <VBox alignment="CENTER" spacing="30" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <!-- Large Heading -->
+        <Label text="Listing Complete!"
+               style="-fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 48; -fx-text-fill: #0F0E0E;" />
+        <!-- Subheading -->
+        <Label fx:id="messageLabel" text="Your listing has been posted!"
+               style="-fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 32; -fx-text-fill: #0F0E0E;" />
+        <!-- Buttons -->
+        <HBox spacing="40" alignment="CENTER">
+            <Button fx:id="listAnotherBookButton" text="List Another Book"
+                    style="-fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 24;"
+                    prefWidth="250" prefHeight="60"/>
+            <Button fx:id="returnToAccountButton" text="Return To Account"
+                    style="-fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-font-family: 'Inter'; -fx-font-weight: bold; -fx-font-size: 24;"
+                    prefWidth="250" prefHeight="60"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

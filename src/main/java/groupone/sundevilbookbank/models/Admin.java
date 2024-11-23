@@ -1,5 +1,7 @@
 package groupone.sundevilbookbank.models;
 
+import java.util.ArrayList;
+
 public class Admin extends Account{
     private int adminID;
     private String adminLevel;

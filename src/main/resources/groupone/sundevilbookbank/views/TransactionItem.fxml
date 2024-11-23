@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Region?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+    fx:controller="groupone.sundevilbookbank.controllers.TransactionItemController"
+    spacing="15" style="-fx-padding: 10; -fx-border-color: #0F0E0E; -fx-border-width: 1; -fx-background-color: #F8F2DC; -fx-alignment: CENTER_LEFT;">
+
+    <children>
+      <HBox spacing="15" style="-fx-alignment: CENTER_LEFT;">
+        <!-- Image Section -->
+        <!-- <ImageView fx:id="orderImage" fitWidth="100" fitHeight="100" /> -->
+
+        <!-- Title and Details Section -->
+        <VBox spacing="5" style="-fx-alignment: CENTER_LEFT;">
+            <Text fx:id="orderIDText" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-fill: #8A0D37;" />
+            <Text fx:id="orderTotalText" style="-fx-font-size: 12px; -fx-fill: #FFA500;" />
+            <Text fx:id="bookCountText" style="-fx-font-size: 12px; -fx-fill: #568196;" />
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <!-- Status Section -->
+        <VBox spacing="5" style="-fx-alignment: CENTER_LEFT;">
+            <Text text="Status:" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #8A0D37;" />
+            <Text fx:id="orderStatusText" style="-fx-font-size: 12px; -fx-fill: #568196;" />
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <!-- Expand Button -->
+        <VBox alignment="CENTER">
+            <Button text="View Details" fx:id="viewButton"
+                style="-fx-background-color: #8A0D37; -fx-text-fill: #F8F2DC;" />
+        </VBox>
+      </HBox>
+      <VBox fx:id="orderDetails" spacing="5" />
+    </children>
+</VBox>

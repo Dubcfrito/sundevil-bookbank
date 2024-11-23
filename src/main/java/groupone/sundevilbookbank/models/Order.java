@@ -2,25 +2,37 @@ package groupone.sundevilbookbank.models;
 
 import java.util.ArrayList;
 
+import groupone.sundevilbookbank.services.Base;
+
 public class Order {
     private int orderNumber;
     private ArrayList<Book> orderContent;
-    private String sellerID;
-    private String buyerID;
-    private String orderDate;
+    private int buyerID;
     private String orderStatus;
-    private String orderTotal;
-    private String orderSellDate;
+    private double orderTotal;
 
-    public Order(int orderNumber, String sellerID, String buyerID, String orderDate, String orderStatus, String orderTotal, String orderSellDate) {
+    //constructors
+    public Order(int orderNumber, int buyerID, ArrayList<Book> orderContent, double orderTotal, String orderStatus) {
         this.orderNumber = orderNumber;
-        this.orderContent = new ArrayList<Book>();
-        this.sellerID = sellerID;
         this.buyerID = buyerID;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
+        this.orderContent = orderContent;
         this.orderTotal = orderTotal;
-        this.orderSellDate = orderSellDate;
+        this.orderStatus = orderStatus;
+    }
+
+    public Order(int buyerID) {
+        this.orderNumber = -1;
+        this.orderContent = new ArrayList<Book>();
+        this.buyerID = buyerID;
+        this.orderStatus = "";
+        this.orderTotal = 0;
+    }
+
+    public void updateOrderTotal() {
+        this.orderTotal = 0;
+        for (Book book : orderContent) {
+            orderTotal += book.getPrice();
+        }
     }
 
     //getters and setters
@@ -36,23 +48,11 @@ public class Order {
     public void setOrderContent(ArrayList<Book> orderContent) {
         this.orderContent = orderContent;
     }
-    public String getSellerID() {
-        return sellerID;
-    }
-    public void setSellerID(String sellerID) {
-        this.sellerID = sellerID;
-    }
-    public String getBuyerID() {
+    public int getBuyerID() {
         return buyerID;
     }
-    public void setBuyerID(String buyerID) {
+    public void setBuyerID(int buyerID) {
         this.buyerID = buyerID;
-    }
-    public String getOrderDate() {
-        return orderDate;
-    }
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
     }
     public String getOrderStatus() {
         return orderStatus;
@@ -60,17 +60,11 @@ public class Order {
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
-    public String getOrderTotal() {
+    public double getOrderTotal() {
         return orderTotal;
     }
-    public void setOrderTotal(String orderTotal) {
+    public void setOrderTotal(double orderTotal) {
         this.orderTotal = orderTotal;
-    }
-    public String getOrderSellDate() {
-        return orderSellDate;
-    }
-    public void setOrderSellDate(String orderSellDate) {
-        this.orderSellDate = orderSellDate;
     }
     public void addBook(Book book) {
         this.orderContent.add(book);
