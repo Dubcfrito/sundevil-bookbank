@@ -310,6 +310,39 @@ public class Base {
         }
         return order;
     }
+
+    public static ArrayList<Order> getOrders(int accountID) {
+        String selectSQL = "SELECT * FROM orders WHERE accountID = ?";
+        ArrayList<Order> orders = new ArrayList<Order>();
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setInt(1, accountID);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                // json array of book ids into arraylist of books
+                JSONArray bookIDs = new JSONArray(rs.getString("bookIDs"));
+                ArrayList<Book> books = new ArrayList<Book>();
+                for (int i = 0; i < bookIDs.length(); i++) {
+                    books.add(getBook(bookIDs.getInt(i)));
+                }
+                Order order = new Order(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    books,
+                    rs.getDouble("price"),
+                    rs.getString("status")
+                );
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return orders;
+    }
     
     // inserts order, returns orderID
     public static int insertOrder(int accountID, Order order) {

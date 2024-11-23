@@ -48,9 +48,9 @@
                         prefWidth="360" prefHeight="70" 
                         style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/>
                 
-                <Button fx:id="account" text="Return to Account" 
+                <!-- <Button fx:id="account" text="Return to Account" 
                         prefWidth="360" prefHeight="70" 
-                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/>
+                        style="-fx-font-family: 'Inter 28pt'; -fx-font-size: 27; -fx-background-color: #8A0D37; -fx-text-fill: #FFA500; -fx-background-radius: 19;"/> -->
             </HBox>
 
         </VBox>
