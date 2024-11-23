@@ -7,30 +7,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Region?>
 
-
 <HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="groupone.sundevilbookbank.controllers.TransactionItemController"
       spacing="15" style="-fx-padding: 10; -fx-border-color: #0F0E0E; -fx-border-width: 1; -fx-background-color: #F8F2DC; -fx-alignment: CENTER_LEFT;">
 
     <children>
         <!-- Image Section -->
-        <ImageView fx:id="itemImage" fitWidth="100" fitHeight="100" />
+		<!-- <ImageView fx:id="orderImage" fitWidth="100" fitHeight="100" /> -->
 
         <!-- Title and Details Section -->
         <VBox spacing="5" style="-fx-alignment: CENTER_LEFT;">
-            <Text fx:id="itemTitle" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-fill: #8A0D37;" />
-            <Text fx:id="itemGenre" style="-fx-font-size: 12px; -fx-fill: #568196;" />
-            <Text fx:id="itemSubject" style="-fx-font-size: 12px; -fx-fill: #568196;" />
-            <Text fx:id="itemCondition" style="-fx-font-size: 12px; -fx-fill: #568196;" />
-            <Text fx:id="itemPrice" style="-fx-font-size: 12px; -fx-fill: #FFA500;" />
-        </VBox>
-
-        <Region HBox.hgrow="ALWAYS" />
-
-        <!-- Author and ISBN Section -->
-        <VBox spacing="5" style="-fx-alignment: CENTER_LEFT;">
-            <Text fx:id="itemAuthor" style="-fx-font-size: 12px; -fx-fill: #568196;" />
-            <Text fx:id="itemISBN" style="-fx-font-size: 12px; -fx-fill: #568196;" />
+            <Text fx:id="orderIDText" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-fill: #8A0D37;" />
+            <Text fx:id="orderTotalText" style="-fx-font-size: 12px; -fx-fill: #FFA500;" />
+			<Text fx:id="bookCountText" style="-fx-font-size: 12px; -fx-fill: #568196;" />
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
@@ -38,7 +27,7 @@
         <!-- Status Section -->
         <VBox spacing="5" style="-fx-alignment: CENTER_LEFT;">
             <Text text="Status:" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-fill: #8A0D37;" />
-            <Text fx:id="itemStatus" style="-fx-font-size: 12px; -fx-fill: #568196;" />
+            <Text fx:id="orderStatusText" style="-fx-font-size: 12px; -fx-fill: #568196;" />
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />

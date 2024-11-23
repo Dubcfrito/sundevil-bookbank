@@ -1,6 +1,6 @@
 package groupone.sundevilbookbank.controllers;
 
-import groupone.sundevilbookbank.models.Book;
+import groupone.sundevilbookbank.models.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -10,63 +10,46 @@ import javafx.scene.text.Text;
 public class TransactionItemController {
 
     @FXML
-    private ImageView itemImage;
+    private ImageView orderImage;
 
     @FXML
-    private Text itemTitle;
+    private Text orderIDText;
 
     @FXML
-    private Text itemGenre;
+    private Text orderStatusText;
 
     @FXML
-    private Text itemSubject;
+    private Text orderTotalText;
 
     @FXML
-    private Text itemCondition;
-
-    @FXML
-    private Text itemPrice;
-
-    @FXML
-    private Text itemAuthor;
-
-    @FXML
-    private Text itemISBN;
-
-    @FXML
-    private Text itemStatus;
+    private Text bookCountText;
 
     @FXML
     private Button viewButton;
 
-    private Book book;
+    private Order order;
 
     @FXML
     public void initialize() {
         viewButton.setOnAction(event -> handleViewButtonClick());
     }
 
-    public void setTransactionDetails(Book book, String orderStatus) {
-        this.book = book;
+    public void setOrderDetails(Order order) {
+        this.order = order;
 
-        itemTitle.setText(book.getTitle());
-        itemGenre.setText("Genre: " + book.getGenre());
-        itemSubject.setText("Subject: " + book.getSubject());
-        itemCondition.setText("Condition: " + book.getCondition());
-        itemPrice.setText("Price: " + book.getPrice());
-        itemAuthor.setText("Author: " + book.getAuthor());
-        itemISBN.setText("ISBN: " + book.getISBN());
-        itemStatus.setText(orderStatus);
+        // Populate the fields with order details
+        orderIDText.setText("Order ID: " + order.getOrderNumber());
+        orderStatusText.setText("Status: " + order.getOrderStatus());
+        orderTotalText.setText("Total: $" + order.getOrderTotal());
+        bookCountText.setText("Books: " + order.getOrderContent().size());
 
-        if (book.getImages() != null && !book.getImages().isEmpty()) {
-            itemImage.setImage(new Image(getClass().getResourceAsStream(book.getImages())));
-        } else {
-            itemImage.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/default_book.png")));
-        }
+        // Set a default image for orders
+        //orderImage.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/default_order.png")));
     }
 
     private void handleViewButtonClick() {
-        System.out.println("View Details button clicked for book: " + book.getTitle());
-        // Add logic to display detailed view
+        System.out.println("View Details button clicked for Order ID: " + order.getOrderNumber());
+        // Add logic to display detailed view or perform other actions
     }
 }
+

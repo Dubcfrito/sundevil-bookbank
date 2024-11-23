@@ -4,6 +4,9 @@ import groupone.sundevilbookbank.models.Account;
 import groupone.sundevilbookbank.models.Order;
 import groupone.sundevilbookbank.utils.GlobalData;
 import groupone.sundevilbookbank.models.Book;
+import groupone.sundevilbookbank.services.Base;
+import groupone.sundevilbookbank.models.Order;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -14,36 +17,49 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 public class AccountPageController {
 
-    private Account currentAccount; // Account object to hold current user data
+	private Account currentAccount; // Account object to hold current user data
 
-    @FXML
-    private ImageView profilePicture;
+	private int currentID;
 
-    @FXML
-    private VBox transactionList;
+	@FXML
+	private ImageView profilePicture;
 
-    @FXML
-    private Button logoutButton;
+	@FXML
+	private VBox transactionList;
 
-    @FXML
-    public void initialize() {
-        // Set default profile picture
-        currentAccount = GlobalData.getCurrentAccount();
+	@FXML
+	private Button logoutButton;
 
-        profilePicture.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/default_profile.png")));
+	@FXML
+	private Text usernameText;
 
-        System.out.println("Initialization complete. Transaction List and Logout button ready.");
+	@FXML
+	public void initialize() {
+		// Retrieve the current account from GlobalData or Base
+		currentAccount = GlobalData.getCurrentAccount();
+		if (currentAccount == null) {
+			currentAccount = Base.getAccount("Jack", "Klebonis");
+		}
+		currentID = currentAccount.getAccountID();
 
-        logoutButton.setOnAction(event -> handleLogout());
-    }
+		profilePicture.setImage(new Image(getClass().getResourceAsStream("/groupone/sundevilbookbank/images/default_profile.png")));
+		// Dynamically set the username
+		usernameText.setText("Name: " + currentAccount.getUsername());
 
-    @FXML
-    private void handleLogout() {
+		// Set logout button action
+		logoutButton.setOnAction(event -> handleLogout());
+
+		// Load transactions
+		loadTransactions();
+	}
+	@FXML
+	private void handleLogout() {
 		try {
 			System.out.println("Logout button clicked");
 			GlobalData.setCurrentAccount(null);
@@ -57,36 +73,29 @@ public class AccountPageController {
 			e.printStackTrace();
 			System.err.println("Error loading loginpage");
 		}
-    }
+	}
 
-    public void setCurrentAccount(Account account) {
-        this.currentAccount = account;
-        if (transactionList != null) {
-            // loadTransactions();
-        }
-    }
+	private void loadTransactions() {
+		transactionList.getChildren().clear(); // Clear existing transactions
 
-    // REFACTOR IS NECCESARY DUE TO SEPERATION OF BUYER AND SELLER
-    // private void loadTransactions() {
-    //     transactionList.getChildren().clear(); // Clear any previous transactions
-    //     if (currentAccount != null) {
-    //         for (Order order : currentAccount.getOrders()) {
-    //             for (Book book : order.getOrderContent()) {
-    //                 try {
-    //                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/groupone/sundevilbookbank/views/TransactionItem.fxml"));
-    //                     Node transactionNode = loader.load();
+		ArrayList<Order> orders = Base.getOrders(currentID);
+		if (orders != null && !orders.isEmpty()) {
+			orders.forEach(order -> {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/groupone/sundevilbookbank/views/TransactionItem.fxml"));
+					Node transactionNode = loader.load();
 
-    //                     TransactionItemController controller = loader.getController();
-    //                     controller.setTransactionDetails(book, order.getOrderStatus());
+					TransactionItemController controller = loader.getController();
+					controller.setOrderDetails(order); // Pass the Order to the controller
 
-    //                     transactionList.getChildren().add(transactionNode);
-    //                 } catch (IOException e) {
-    //                     e.printStackTrace();
-    //                 }
-    //             }
-    //         }
-    //     } else {
-    //         System.out.println("No account data found.");
-    //     }
-    // }
+					transactionList.getChildren().add(transactionNode);
+				} catch (IOException e) {
+					System.err.println("Error loading transaction item: " + e.getMessage());
+					e.printStackTrace();
+				}
+			});
+		} else {
+			System.out.println("No orders found for ID: " + currentID);
+		}
+	}
 }
