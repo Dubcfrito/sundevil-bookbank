@@ -1,6 +1,7 @@
 package groupone.sundevilbookbank.controllers;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -20,6 +21,7 @@ import groupone.sundevilbookbank.utils.GlobalData;
 public class SellController {
 
     @FXML
+
     private TextField titleField;
 
     @FXML
