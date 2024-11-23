@@ -8,6 +8,6 @@ To get started:
 * **'mvn javafx:run' in command line to run**
 
 ## File Structure ## 
-Main                src\main\java\groupone\sundevilbookbank\MainApp.java
-All Java classes    src\main\java\groupone\sundevilbookbank
-FXML Pages          src\main\resources\groupone\sundevilbookbank\views
+* Main                src\main\java\groupone\sundevilbookbank\MainApp.java
+* All Java classes    src\main\java\groupone\sundevilbookbank
+* FXML Pages          src\main\resources\groupone\sundevilbookbank\views
