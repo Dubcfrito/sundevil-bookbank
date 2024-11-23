@@ -39,7 +39,7 @@ public class MainApp extends Application {
         pages.add("ReviewOrder.fxml");          // 6
         pages.add("PurchaseConfirmation.fxml"); // 7
         pages.add("ShoppingCart.fxml");         // 8
-        
+        pages.add("Sell.fxml");                 // 9
 
         // Initialize PageLoader
         PageLoader.init(primaryStage);
