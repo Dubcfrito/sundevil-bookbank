@@ -40,6 +40,6 @@ public class LandingPageController {
 	}
 
 	private void handleSellButton() {
-		MainApp.goToPage(5);
+		MainApp.goToPage(9);
 	}
 }

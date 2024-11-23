@@ -4,8 +4,9 @@
 <?import javafx.scene.text.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="groupone.sundevilbookbank.controllers.SellController"
-      spacing="30" alignment="TOP_CENTER" style="-fx-background-color: #FAF3E0; -fx-padding: 70;" prefWidth="600">
+      spacing="30" alignment="TOP_CENTER" style="-fx-background-color: #FAF3E0; " prefWidth="1280" prefHeight="720">
 
+    <fx:include source="NavBar.fxml"/>
     <!-- Title Section -->
     <Label text="Sell a Book" style="-fx-font-family: 'Inter'; -fx-font-size: 36px; -fx-font-weight: bold;" />
 
