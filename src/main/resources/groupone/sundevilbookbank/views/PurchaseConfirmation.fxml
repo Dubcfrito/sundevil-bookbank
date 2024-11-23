@@ -11,12 +11,13 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
       fx:controller="groupone.sundevilbookbank.controllers.PurchaseConfirmationController"
-      prefWidth="1280" prefHeight="720">
+      prefWidth="1280" prefHeight="720"
+      style="-fx-background-color: #F8F2DC">
        <!-- Navigation Bar -->
        <fx:include source="NavBar.fxml"/>
 
        <!-- Purchase Confirmation Page without the Navigation Bar -->
-       <VBox fx:id="purchaseConfirmationPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+       <VBox fx:id="purchaseConfirmationPage" alignment="CENTER" spacing="20" style="-fx-background-color: #F8F2DC; -fx-padding: 20;" HBox.Hgrow="ALWAYS">
 
             <children>
                 <Label fx:id="title" text="Order Confirmed!" textFill="#000000" 
