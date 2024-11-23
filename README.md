@@ -5,12 +5,9 @@ To get started:
 * link paths in system environment variables (look up if you need to)
 * Clone repository
 * 'mvn clean install' to create build (only do once)
-* 'mvn javafx:run' in command line to run
-
-## TODO ##
-* implement admin class
-* create sql database class
-* create pages
+* **'mvn javafx:run' in command line to run**
 
 ## File Structure ## 
-tbd
+Main                src\main\java\groupone\sundevilbookbank\MainApp.java
+All Java classes    src\main\java\groupone\sundevilbookbank
+FXML Pages          src\main\resources\groupone\sundevilbookbank\views
