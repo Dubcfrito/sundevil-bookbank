@@ -1,107 +1,145 @@
 package groupone.sundevilbookbank.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import groupone.sundevilbookbank.MainApp;
+import groupone.sundevilbookbank.models.Book;
+import groupone.sundevilbookbank.services.Base;
+import groupone.sundevilbookbank.utils.GlobalData;
 
 public class SellController {
 
     @FXML
-    private AnchorPane rootPane;
 
-    @FXML
     private TextField titleField;
 
     @FXML
     private TextField priceField;
 
     @FXML
-    private TextArea descriptionField;
-
-    @FXML
-    private TextField yearField;
+    private TextField subjectField;
 
     @FXML
     private TextField authorField;
 
     @FXML
-    private ComboBox<String> genreBox;
+    private TextField genreField;
 
     @FXML
-    private ComboBox<String> conditionBox;
+    private TextField isbnField;
 
     @FXML
-    private TextField estimatedPriceField;
+    private VBox conditionContainer;
 
     @FXML
-    private Button listBookButton;
+    private TextArea descriptionField;
 
     @FXML
-    private Button closeButton;
+    private Button submitButton;
+
+    @FXML
+    private ComboBox<String> priorityComboBox;
 
     @FXML
     public void initialize() {
-        // Populate the Genre ComboBox
-        genreBox.getItems().addAll("Fiction", "Non-Fiction", "Science", "History", "Other");
+        priorityComboBox = new ComboBox<>();
+        priorityComboBox.getItems().addAll(
+            "Like New",
+            "Very Good",
+            "Acceptable",
+            "Poor",
+            "Bad",
+            "Unspecified"
+        );
+        priorityComboBox.setValue("Unspecified");
+        priorityComboBox.setStyle("-fx-font-family: 'Inter'; -fx-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px;");
+        priorityComboBox.setCellFactory(
+            new Callback<ListView<String>, ListCell<String>>() {
+                @Override
+                public ListCell<String> call(ListView<String> param) {
+                    final ListCell<String> cell = new ListCell<String>() {
+                        {
+                            super.setPrefWidth(200);
+                        }
+                        @Override
+                        public void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item);
+                                setTextFill(Color.WHITE);
+                                setStyle("-fx-background-color: #568196;");
+                                setOnMouseEntered(event -> setStyle("-fx-font-family: 'Inter'; -fx-text-fill: #568196; -fx-background-color: white; -fx-font-size: 18px;"));
+                                setOnMouseExited(event -> setStyle("-fx-font-family: 'Inter'; -fx-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px;"));
 
-        // Populate the Condition ComboBox
-        conditionBox.getItems().addAll("New", "Like New", "Used - Good", "Used - Acceptable");
+                            } else {
+                                setText(null);
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            }
+        );
+
+        // Style the button cell (selected value area)
+        priorityComboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setStyle("-fx-font-family: 'Inter'; -fx-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px;");
+                }
+            }
+        });
+
+        conditionContainer.getChildren().add(priorityComboBox);
     }
 
     @FXML
-    private void handleClose() {
-        // Logic to handle closing the form
-        System.out.println("Close button clicked.");
-        rootPane.getScene().getWindow().hide();
-    }
-
-    @FXML
-    private void handleListBook() {
-        // Validate inputs
-        if (titleField.getText().isEmpty() || priceField.getText().isEmpty() || genreBox.getValue() == null
-                || conditionBox.getValue() == null || estimatedPriceField.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please fill in all required fields.");
-            return;
+    public void handleSubmit() {
+        if(titleField.getText() == "" || priceField.getText() == "" || subjectField.getText() == "" || authorField.getText() == "" || genreField.getText() == "") {
+            showAlert("Invalid Listing", "Please fill out all fields marked with *");
         }
+        else if(priceField.getText().matches("^\\d+(\\.\\d{1,2})?$") == false) {
+            showAlert("Invalid Listing", "Please put a valid price (ex. 10.00).\nEnsure that there is no whitespace.");
+        }
+        else if(isbnField.getText().matches("[0-9]+") == false) {
+            showAlert("Invalid Listing", "Please put a valid ISBN (ex. for 978-3-16-148410-0, just put 9783161484100).\nEnsure that there is no whitespace or any symbol other than characters 1-9.");
+        }
+        else {
+            System.out.println("Form Submitted:");
+            System.out.println("Title: " + titleField.getText());
+            System.out.println("Selling Price: " + Double.parseDouble(priceField.getText()));
+            System.out.println("Subject: " + subjectField.getText());
+            System.out.println("Author: " + authorField.getText());
+            System.out.println("Genre: " + genreField.getText());
+            System.out.println("Condition: " + priorityComboBox.getValue());
+            System.out.println("Description: " + descriptionField.getText());
+            System.out.println("ISBN: " + isbnField.getText());
+            // pricefield string into a double
 
-        // Example logic to handle listing the book
-        String title = titleField.getText();
-        String price = priceField.getText();
-        String description = descriptionField.getText();
-        String year = yearField.getText();
-        String author = authorField.getText();
-        String genre = genreBox.getValue();
-        String condition = conditionBox.getValue();
-        String estimatedPrice = estimatedPriceField.getText();
-
-        System.out.println("Listing Book Details:");
-        System.out.println("Title: " + title);
-        System.out.println("Original Price: " + price);
-        System.out.println("Description: " + description);
-        System.out.println("Year: " + year);
-        System.out.println("Author: " + author);
-        System.out.println("Genre: " + genre);
-        System.out.println("Condition: " + condition);
-        System.out.println("Estimated Price: " + estimatedPrice);
-
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Your book has been listed!");
-        clearForm();
+            Base.insertBook(GlobalData.getCurrentAccount().getAccountID(), titleField.getText(), authorField.getText(), genreField.getText(), subjectField.getText(), isbnField.getText(), priorityComboBox.getValue(), descriptionField.getText(), Double.parseDouble(priceField.getText()), "Listed", "\\src\\main\\resources\\groupone\\sundevilbookbank\\images\\default_book.png");
+            showAlert("Listing Successful", "Your book has been listed for sale!");
+            MainApp.goToPage(3);
+        }
     }
 
-    private void clearForm() {
-        // Clear all form inputs
-        titleField.clear();
-        priceField.clear();
-        descriptionField.clear();
-        yearField.clear();
-        authorField.clear();
-        genreBox.setValue(null);
-        conditionBox.setValue(null);
-        estimatedPriceField.clear();
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

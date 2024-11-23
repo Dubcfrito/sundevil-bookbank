@@ -8,8 +8,6 @@ public class Account {
     private String username;
     private String password;
     private String email;
-    private ArrayList<Book> listings;
-    private List<Order> orders;
 
 
     public Account(int accountID, String username, String password, String email) {
@@ -17,17 +15,14 @@ public class Account {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.listings = new ArrayList<Book>();
-        this.orders = new ArrayList<>();
     }
 
     //default constructor
     public Account() {
-        this.accountID = 0;
+        this.accountID = -1;
         this.username = "";
         this.password = "";
         this.email = "";
-        this.listings = new ArrayList<Book>();
     }
     
     //getters and setters
@@ -54,26 +49,5 @@ public class Account {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    public ArrayList<Book> getListings() {
-        return listings;
-    }
-    public void setListings(ArrayList<Book> listings) {
-        this.listings = listings;
-    }
-    public void addListing(Book book) {
-        this.listings.add(book);
-    }
-    public void removeListing(Book book) {
-        this.listings.remove(book);
-    }
-    public List<Order> getOrders() {
-        return orders;
-    }
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-    public void addOrder(Order order) {
-        this.orders.add(order);
     }
 }

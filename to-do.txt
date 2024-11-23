@@ -1,0 +1,8 @@
+To-do
+
+1. Integrate Account page
+2. Integrate Sell page
+DONE 3. Update database with buyer and seller classes
+4. Update documentation
+
+LAST create video demo

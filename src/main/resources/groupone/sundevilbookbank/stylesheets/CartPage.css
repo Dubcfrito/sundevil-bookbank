@@ -1,0 +1,27 @@
+.remove-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 20px;
+    -fx-background-radius: 150;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 48px;
+}
+
+.remove-button:hover {
+    -fx-background-color: #568196;
+    -fx-text-fill: #F8F2DC
+}
+
+.place-order-button {
+    -fx-font-family: 'Inter 28pt';
+    -fx-font-size: 18;
+    -fx-background-color: #8A0D37;
+    -fx-text-fill: #FFA500;
+    -fx-background-radius: 19;
+}
+
+.place-order-button:hover {
+    -fx-background-color: #FFA500;
+    -fx-text-fill: #8A0D37;
+}
