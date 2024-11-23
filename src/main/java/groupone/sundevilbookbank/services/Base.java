@@ -246,6 +246,40 @@ public class Base {
         }
     }
 
+    public static ArrayList<Book> getSellerListings(int accountID) {
+        String selectSQL = "SELECT * FROM books WHERE accountID = ?";
+        ArrayList<Book> books = new ArrayList<Book>();
+    
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+            // Set parameters for the PreparedStatement
+            pstmt.setInt(1, accountID);
+    
+            // Execute the query
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Book book = new Book(
+                    rs.getInt("id"),
+                    rs.getInt("accountID"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("genre"),
+                    rs.getString("subject"),
+                    rs.getString("ISBN"),
+                    rs.getString("condition"),
+                    rs.getString("description"),
+                    rs.getDouble("price"),
+                    rs.getString("status"),
+                    rs.getString("images")
+                );
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return books;
+    }
+
     public static Book getBook(int ID) {
         String selectSQL = "SELECT * FROM books WHERE id = ?";
         Book book = null;
@@ -474,7 +508,7 @@ public class Base {
         ArrayList<String> isbns) {
 
         ArrayList<Book> books = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE WHERE status = 'Listed'");
+        StringBuilder sql = new StringBuilder("SELECT * FROM books WHERE status = 'Listed'");
 
         // Append filters dynamically
         if (title != null && !title.isEmpty()) sql.append(" AND title LIKE ?");

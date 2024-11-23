@@ -23,6 +23,8 @@
 				<Text fx:id="usernameText" text="Name: xxxx" style="-fx-font-size: 18px;"/>
 				<Text text="My Transactions" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 			</VBox>
+            <Button fx:id="bodyToggle" onAction="#handleBodyToggle" text="Show Listings" style="-fx-background-color: #8a0d37; -fx-text-fill: white;"
+                maxWidth="150" />
 		</HBox>
         
         <!-- Scrollable Transaction List Section -->

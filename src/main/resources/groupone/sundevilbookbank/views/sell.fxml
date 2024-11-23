@@ -2,9 +2,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.collections.*?>
+
+
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="groupone.sundevilbookbank.controllers.SellController"
-      spacing="30" alignment="TOP_CENTER" style="-fx-background-color: #FAF3E0; " prefWidth="1280" prefHeight="720">
+      spacing="30" alignment="TOP_CENTER" style="-fx-background-color: #FAF3E0; " prefWidth="1280" prefHeight="720"
+      stylesheets="@../stylesheets/BuyPage.css" >
 
     <fx:include source="NavBar.fxml"/>
     <!-- Title Section -->
@@ -12,19 +16,24 @@
 
     <!-- Title and Selling Price Section -->
     <VBox spacing="20" alignment="TOP_LEFT" style="-fx-max-width: 500;">
-        <Label text="Title" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+        <Label text="Title*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
         <TextField fx:id="titleField" promptText="Title Example"
                    style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
 
-        <Label text="Selling Price" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
-        <TextField fx:id="priceField" promptText="Enter Selling Price"
+        <Label text="Price*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+        <TextField fx:id="priceField" promptText="ex. 50.00"
                    style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
     </VBox>
 
     <!-- Description Section -->
     <VBox alignment="TOP_LEFT" spacing="10" style="-fx-max-width: 500;">
         <Label text="Add Description (Optional)" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
-        <TextArea fx:id="descriptionField" promptText="e.g., hardcover, only used for one year"
+        <TextArea fx:id="descriptionField" promptText="ex., hardcover, only used for one year"
+                  style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: #568196; -fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: white; -fx-pref-height: 100px;" />
+    </VBox>
+    <VBox alignment="TOP_LEFT" spacing="10" style="-fx-max-width: 500;">
+        <Label text="Add ISBN" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+        <TextField fx:id="isbnField" promptText="ex., 123456789"
                   style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: #568196; -fx-font-size: 16px; -fx-text-fill: black; -fx-background-color: white; -fx-pref-height: 100px;" />
     </VBox>
 
@@ -35,34 +44,35 @@
         <GridPane hgap="40" vgap="20" alignment="CENTER">
             <!-- Left Column -->
             <VBox alignment="TOP_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="0">
-                <Label text="Subject" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
-                <TextField fx:id="subjectField" promptText="Enter Subject"
+                <Label text="Subject*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                <TextField fx:id="subjectField" promptText="ex. Physics"
                            style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
             </VBox>
 
             <VBox alignment="TOP_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="0">
-                <Label text="Author" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                <Label text="Author*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
                 <TextField fx:id="authorField" promptText="Enter Author"
                            style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
             </VBox>
 
             <!-- Right Column -->
             <VBox alignment="TOP_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="1">
-                <Label text="Genre" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
-                <TextField fx:id="genreField" promptText="Enter Genre"
+                <Label text="Genre*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                <TextField fx:id="genreField" promptText="ex. Science"
                            style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
             </VBox>
 
-            <VBox alignment="TOP_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1">
-                <Label text="Condition" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
-                <TextField fx:id="conditionField" promptText="Enter Condition"
-                           style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" />
+            <VBox fx:id="conditionContainer" alignment="TOP_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <Label text="Condition*" style="-fx-font-family: 'Inter'; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                <!-- <TextField fx:id="conditionField" promptText="Enter Condition"
+                           style="-fx-font-family: 'Inter'; -fx-prompt-text-fill: white; -fx-background-color: #568196; -fx-font-size: 18px; -fx-text-fill: white;" /> -->
+
             </VBox>
         </GridPane>
     </VBox>
 
     <!-- Submit Button -->
-    <Button text="List My Book" fx:id="submitButton" style="
+    <Button text="List My Book" fx:id="submitButton" onAction="#handleSubmit" style="
         -fx-background-color: #800020; /* Maroon color */
         -fx-text-fill: #FFA500; /* Orange text */
         -fx-font-family: 'Inter';

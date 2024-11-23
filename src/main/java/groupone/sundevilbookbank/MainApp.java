@@ -16,7 +16,7 @@ public class MainApp extends Application {
 
     private static final ArrayList<String> pages = new ArrayList<>();
 
-    private static int currentPageIndex = 5;
+    private static int currentPageIndex = 0;
 
     @Override
     public void start(Stage primaryStage) {
@@ -36,7 +36,6 @@ public class MainApp extends Application {
         PageLoader.init(primaryStage);
 
         // Load AccountPage with Account data
-        //PageLoader.loadPageWithData("AccountPage.fxml", AccountPageController::setCurrentAccount, testAccount);
         PageLoader.loadPage(pages.get(currentPageIndex));
     }
 
